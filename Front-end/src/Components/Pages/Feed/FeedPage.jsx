@@ -8,11 +8,10 @@ import { Button } from "@/Components/ui/button.jsx";
 import {
     Dialog,
     DialogContent,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@/Features/userDetails';
 

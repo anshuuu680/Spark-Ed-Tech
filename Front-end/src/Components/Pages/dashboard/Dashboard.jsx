@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/Components/ui/calendar";
 import { useEffect, useState } from "react";
 import Chart from "./Chart";
 import ChartPie from "./ChartPie";
