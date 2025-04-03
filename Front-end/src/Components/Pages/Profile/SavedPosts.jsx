@@ -1,0 +1,62 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Loader from "@/Components/Loader";
+import { selectUserData } from "@/Features/userDetails";
+import QuestionCard from "../Feed/QuestionCard";
+
+const SavedPosts = () => {
+  const [posts, setPosts] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const { userData } = useSelector(selectUserData);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      try {
+        const response = await axios.get(`/api/feed/get-questions/${userData?.username}`);
+
+        if (response.status == 200) {
+          setPosts(response.data.data.questions);
+          setIsLoading(false);
+        }
+
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+
+    }
+
+    fetchData();
+
+  }, [location.pathname])
+
+
+  return (
+    <div className="w-full h-fit">
+      {isLoading ? <div className="w-[80vh] min-h-[50vh] flex items-center justify-center">
+        <Loader />
+      </div> : <div className="overflow-y-auto no-scrollbar">
+
+      {posts && posts.length > 0 ? (
+          <div className="flex flex-wrap justify-center gap-4">
+            {posts.map((post) => (
+              <QuestionCard key={post._id} obj={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-64 text-xl font-semibold text-gray-500">
+            No Saved Posts
+          </div>
+        )}
+
+
+      </div>}
+
+    </div>
+  )
+}
+export default SavedPosts

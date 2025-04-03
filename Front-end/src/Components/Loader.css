@@ -1,0 +1,48 @@
+/* src/components/Loader.css */
+
+/* Center the loader on the screen */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+.loader {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:0px;
+  height:0px;
+  border-radius:100%;
+  opacity:0;
+  border:1px solid white;
+  animation:anim 4s infinite linear;
+}
+
+@keyframes anim {
+  0% {
+    opacity:0.0;
+    width:0vmin;
+    height:0vmin;
+  }
+  10% {
+    opacity:0.4;
+  }
+  100% {
+    opacity:0.0;
+    width:40vmin;
+    height:40vmin;
+  }
+}
+
+.loader:nth-child(1) { animation-delay:200ms; }
+.loader:nth-child(2) { animation-delay:400ms; }
+.loader:nth-child(3) { animation-delay:600ms; }
+.loader:nth-child(4) { animation-delay:800ms; }
+.loader:nth-child(5) { animation-delay:1000ms; }
+.loader:nth-child(6) { animation-delay:1200ms; }
+.loader:nth-child(7) { animation-delay:1400ms; }
+.loader:nth-child(8) { animation-delay:1600ms; }
+.loader:nth-child(9) { animation-delay:1800ms; }
