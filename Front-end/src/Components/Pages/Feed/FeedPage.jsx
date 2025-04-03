@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import axios from 'axios';
 import Comment from './Comment';
-import { FaCheckCircle } from 'react-icons/fa';
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button.jsx";
 import {
     Dialog,
     DialogContent,
