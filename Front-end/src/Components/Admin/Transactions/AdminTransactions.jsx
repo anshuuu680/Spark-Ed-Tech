@@ -1,7 +1,6 @@
 import React from "react";
 import { Table, Pagination } from "antd"; // Ant Design for UI components
 import { CheckCircleIcon, XCircleIcon } from "lucide-react"; // For icons
-import "../admin.css"
 const transactionsData = [
   {
     key: '1',
