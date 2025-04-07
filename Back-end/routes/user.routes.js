@@ -38,7 +38,7 @@ router.route("/reset-password").post(resetPassword);
 router.route("/all-users").get(verifyJWT,allUsers);
 router.route("/saved").post(verifyJWT,savedPosts);
 router.route("/user/:username").get(verifyJWT,userDetails);
-router.route("/get-value", userDetails);
+router.route("/get-value").get(userDetails);
 
 
 
