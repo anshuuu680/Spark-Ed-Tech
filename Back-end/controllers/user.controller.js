@@ -3,8 +3,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User/user.schema.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import axios from "axios";
-import qs from "qs";
+
 import { forgotPassword } from "../emails/ForgotPassword.js";
 import { Post } from "../models/Post/post.model.js";
 import { Question } from "../models/Post/question.model.js";
@@ -105,7 +104,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { username, email, password } = req.body;
 
-
   console.log("Getting the values here:", { email, password });
 
   if (!(username || email)) {
@@ -139,6 +137,8 @@ export const loginUser = async (req, res) => {
       "-password -refreshToken"
     );
 
+    console.log("logged in User:", loggedInUser);
+
     return res
       .status(200)
       .cookie("accessToken", accessToken, options)
@@ -161,8 +161,6 @@ export const loginUser = async (req, res) => {
       .json(new ApiResponse(500, null, "Internal Server Error"));
   }
 };
-
-
 
 export const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
@@ -434,13 +432,4 @@ export const savedPosts = asyncHandler(async (req, res) => {
   await user.save();
 
   res.status(200).json(new ApiResponse(200, { saved, user }, "Successful"));
-});
-
-
-export const getValue = asyncHandler(async (req, res) => {
-  res
-    .status(200)
-    .json(
-      new ApiResponse(200, "value found here for the above route", "Successful")
-    );
 });
