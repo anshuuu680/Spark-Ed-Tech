@@ -432,3 +432,12 @@ export const savedPosts = asyncHandler(async (req, res) => {
 
   res.status(200).json(new ApiResponse(200, { saved, user }, "Successful"));
 });
+
+
+export const getValue = asyncHandler(async (req, res) => {
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, "value found here for the above route", "Successful")
+    );
+});
