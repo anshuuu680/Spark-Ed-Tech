@@ -12,6 +12,7 @@ import {
   allUsers,
   userDetails,
   savedPosts,
+  getValue,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -34,11 +35,10 @@ router.route("/send-otp").post(forgotOtp);
 router.route("/verify-otp").post(otpCheck);
 router.route("/reset-password").post(resetPassword);
 
-
-router.route("/all-users").get(verifyJWT,allUsers);
-router.route("/saved").post(verifyJWT,savedPosts);
-router.route("/user/:username").get(verifyJWT,userDetails);
-router.route("/get-value").get(userDetails);
+router.route("/all-users").get(verifyJWT, allUsers);
+router.route("/saved").post(verifyJWT, savedPosts);
+router.route("/user/:username").get(verifyJWT, userDetails);
+router.route("/get-value").get(getValue);
 
 
 
