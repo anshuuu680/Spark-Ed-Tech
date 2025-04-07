@@ -15,47 +15,7 @@ const options = {
   secure: true,
 };
 
-const getGoogleAuthToken = async (code) => {
-  const url = "https://oauth2.googleapis.com/token";
 
-  const values = {
-    code,
-    client_id: process.env.GOOGLE_CLIENT_ID,
-    client_secret: process.env.GOOGLE_SECRET_KEY,
-    redirect_uri: process.env.GOOGLE_OAUTH_REDIRECT_URL,
-    grant_type: "authorization_code",
-  };
-
-  try {
-    const res = await axios.post(url, qs.stringify(values), {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
-    return res.data;
-  } catch (error) {
-    console.error(error.response.data.error);
-    console.error("Failed to fetch Google Oauth Tokens");
-    throw new Error(error.message);
-  }
-};
-
-const getGoogleUser  = async ({ id_token, access_token }) => {
-  try {
-    const res = await axios.get(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
-      {
-        headers: {
-          Authorization: `Bearer ${id_token}`,
-        },
-      }
-    );
-    return res.data;
-  } catch (error) {
-    log.error(error, "Error fetching Google user");
-    throw new Error(error.message);
-  }
-};
 
 export async function findAndUpdateUser(query, update, options = {}) {
   return User.findOneAndUpdate(query, update, options);
@@ -83,7 +43,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
 export const registerUser = async (req, res) => {
   try {
-    const { username, email,fullName, password } = req.body;
+    const { username, email, fullName, password } = req.body;
 
     const existedUser = await User.findOne({
       $or: [{ username }, { email }],
@@ -105,15 +65,12 @@ export const registerUser = async (req, res) => {
       }
     }
 
-
-
     const user = await User.create({
       username,
       email,
       fullName,
       password,
     });
-
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     await user.hashOtp(otp);
@@ -202,51 +159,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-export const googleAuthHandler = asyncHandler(async (req, res) => {
-  try {
-    const code = req.query.code;
 
-    const { id_token, access_token } = await getGoogleAuthToken(code);
-
-    const googleUser = await getGoogleUser({ id_token, access_token });
-
-    if (!googleUser.verified_email) {
-      throw new ApiError(409, "user with username or email already exists");
-    }
-
-    const newUser = await findAndUpdateUser(
-      {
-        email: googleUser.email,
-      },
-      {
-        email: googleUser.email,
-        username: googleUser.email.split("@")[0],
-        fullName: googleUser.name,
-        avatar: googleUser.picture,
-      },
-      {
-        upsert: true,
-        new: true,
-      }
-    );
-
-    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-      newUser._id
-    );
-
-    const loggedInUser = await User.findById(newUser._id).select(
-      "-password -refreshToken"
-    );
-
-    return res
-      .status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
-      .redirect(`${process.env.FRONT_END_URL}/${loggedInUser._id}/dashboard`);
-  } catch (error) {
-    throw new ApiError(40, "");
-  }
-});
 
 export const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
