@@ -9,7 +9,7 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("api/course/all-courses");
+        const response = await axios.get("https://spark-ed-tech.onrender.com/api/course/all-courses");
         if (response.status === 200) {
           setCourses(response.data.data);
           console.log(response.data.data)
