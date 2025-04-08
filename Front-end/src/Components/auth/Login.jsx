@@ -15,7 +15,7 @@ const Login = () => {
 
   const loginUser = async ({ email, password }) => {
     try {
-      const response = await axios.post('/api/login', { email, password });
+      const response = await axios.post('https://spark-ed-tech.onrender.com/api/login', { email, password });
       if (response.status === 200) {
         dispatch(setUserData(response.data.data.user));
         dispatch(setIsAuthenticated(true));
