@@ -17,6 +17,7 @@ const Login = () => {
     try {
       const response = await axios.post('https://spark-ed-tech.onrender.com/api/login', { email, password });
       if (response.status === 200) {
+        console.log(response.data.data);
         dispatch(setUserData(response.data.data.user));
         dispatch(setIsAuthenticated(true));
         if (response.data.data.user.role === 'admin') {
