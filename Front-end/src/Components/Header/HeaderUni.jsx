@@ -17,6 +17,7 @@ const HeaderUni = () => {
       try {
         const response = await axios.get("https://spark-ed-tech.onrender.com/api/user-data");
         if (response.status === 200) {
+           console.log(response.data.data);
           setIsAuthenticated(true);
         }
       } catch (error) {
