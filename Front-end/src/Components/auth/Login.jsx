@@ -15,7 +15,12 @@ const Login = () => {
 
   const loginUser = async ({ email, password }) => {
     try {
-      const response = await axios.post('https://spark-ed-tech.onrender.com/api/login', { email, password });
+      const response = await axios.post(
+        'https://spark-ed-tech.onrender.com/api/login',
+        { email, password },
+        { withCredentials: true }
+      );
+
       if (response.status === 200) {
         console.log(response.data.data);
         dispatch(setUserData(response.data.data.user));
