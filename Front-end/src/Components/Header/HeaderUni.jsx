@@ -17,7 +17,7 @@ const HeaderUni = () => {
       try {
         const response = await axios.get("https://spark-ed-tech.onrender.com/api/user-data");
         if (response.status === 200) {
-           console.log(response.data.data);
+          console.log(response.data.data);
           setIsAuthenticated(true);
         }
       } catch (error) {
@@ -29,12 +29,12 @@ const HeaderUni = () => {
     fetchData();
   }, []);
 
- 
+
 
   const handleLogout = async () => {
     try {
       await axios.get(`https://spark-ed-tech.onrender.com/api/logout`);
-     
+
       setIsAuthenticated(false);
       navigate("/");
     } catch (error) {
