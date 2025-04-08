@@ -18,7 +18,7 @@ const Login = () => {
       const response = await axios.post(
         'https://spark-ed-tech.onrender.com/api/login',
         { email, password },
-        { withCredentials: true }
+
       );
 
       if (response.status === 200) {
