@@ -9,7 +9,8 @@ import { verifyEmail } from "../emails/VerifyEmail.js";
 
 const options = {
   httpOnly: true,
-  secure: false,
+  secure: true,
+  sameSite: "None",
 };
 
 export const createCourse = asyncHandler(async (req, res) => {

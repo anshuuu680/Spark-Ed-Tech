@@ -3,9 +3,10 @@ import { User } from "../models/User/user.schema.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const options = {
-    httpOnly: true,
-    secure: true,
-  };
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+};
   
 
 export const getAdminData = async (req, res) => {

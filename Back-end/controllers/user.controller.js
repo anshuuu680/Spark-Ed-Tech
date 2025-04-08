@@ -12,8 +12,8 @@ import { verifyEmail } from "../emails/VerifyEmail.js";
 const options = {
   httpOnly: true,
   secure: true,
+  sameSite: "None",
 };
-
 
 
 export async function findAndUpdateUser(query, update, options = {}) {
