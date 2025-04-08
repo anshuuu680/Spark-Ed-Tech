@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target:"https://spark-ed-tech.onrender.com/",
+        target: "http://localhost:3000/",
         changeOrigin: true,
         onProxyReq(proxyReq) {
           console.log(`Proxy request to: ${proxyReq.path}`);
