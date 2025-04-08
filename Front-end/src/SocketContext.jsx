@@ -15,7 +15,7 @@ export const SocketProvider = ({ children }) => {
 
     const socketInstance = useMemo(() => {
         if (userData?._id) {
-            return io('http://localhost:3000', {
+            return io('https://spark-ed-tech.onrender.com', {
                 withCredentials: true,
                 query: { userId: userData._id }
             });

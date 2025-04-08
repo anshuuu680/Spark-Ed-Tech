@@ -47,7 +47,7 @@ const Chat = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get("/api/all-users");
+                const response = await axios.get("https://spark-ed-tech.onrender.com/api/all-users");
                 setUsers(response.data.data);
             } catch (error) {
                 console.error("Error fetching users:", error);
@@ -61,7 +61,7 @@ const Chat = () => {
 
     const handleStartChat = async (user) => {
         try {
-            const response = await axios.post("/api/start-chat", {
+            const response = await axios.post("https://spark-ed-tech.onrender.com/api/start-chat", {
                 from: userData?._id,
                 to: user._id,
             });

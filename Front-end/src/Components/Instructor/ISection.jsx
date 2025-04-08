@@ -67,7 +67,7 @@ function ISection() {
 
     try {
       
-      const res = await axios.post(`/api/instructor/create-section/${id}`, formData, {
+      const res = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/create-section/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setSections([...sections, res.data.data.section]);

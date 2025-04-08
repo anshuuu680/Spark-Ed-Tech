@@ -22,7 +22,7 @@ function ICDetails() {
   useEffect(() => {
     const fetchCourseDetails = async () => {
       try {
-        const response = await axios.get(`/api/instructor/courses/${id}`);
+        const response = await axios.get(`https://spark-ed-tech.onrender.com/api/instructor/courses/${id}`);
         const { course, sections } = response.data.data;
         setCourse({ course, sections });
        
@@ -69,7 +69,7 @@ function ICDetails() {
     try {
       setIsLoading(true)
       const response = await axios.post(
-        `/api/instructor/add-lecture`,
+        `https://spark-ed-tech.onrender.com/api/instructor/add-lecture`,
         formData,
         {
           headers: {
@@ -107,7 +107,7 @@ function ICDetails() {
     }
 
     try {
-      const response = await axios.post(`/api/instructor/${id}/add-section`, {
+      const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/${id}/add-section`, {
         title: newSectionTitle,
       });
 
@@ -127,7 +127,7 @@ function ICDetails() {
 
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.post(`/api/instructor/${id}/details-change`, {
+      const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/${id}/details-change`, {
         title: editedTitle,
         price: editedPrice,
         description: editedDescription,
@@ -153,7 +153,7 @@ function ICDetails() {
 
   const deleteSection = async (sectionId) => {
     try {
-    const response =   await axios.post(`/api/instructor/delete-section`, { sectionId });
+      const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/delete-section`, { sectionId });
 
       if(response.status==200){
         toast.success("Section has been Deleted.");

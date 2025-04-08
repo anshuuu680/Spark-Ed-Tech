@@ -33,11 +33,11 @@ const CreatePost = () => {
         formData.append("description", description);
         formData.append("image", image);
 
-        response = await axios.post("/api/feed/create-post", formData, {
+        response = await axios.post("https://spark-ed-tech.onrender.com/api/feed/create-post", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
-        response = await axios.post("/api/feed/create-question", { question });
+        response = await axios.post("https://spark-ed-tech.onrender.com/api/feed/create-question", { question });
       }
 
       if (response.status === 200) {

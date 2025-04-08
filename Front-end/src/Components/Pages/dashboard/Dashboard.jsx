@@ -39,7 +39,7 @@ const Dashboard = () => {
       i === index ? { ...t, isCompleted: !t.isCompleted } : t
     );
     try {
-      const response = await axios.put(`/api/tasks/${tasks[index]._id}`, updatedTasks[index]);
+      const response = await axios.put(`https://spark-ed-tech.onrender.com/api/tasks/${tasks[index]._id}`, updatedTasks[index]);
       if (response.status === 200) {
         if (updatedTasks[index]?.isCompleted === true)
           toast.success('Task completed successfully!')
@@ -55,7 +55,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("/api/tasks/get-tasks");
+        const response = await axios.get("https://spark-ed-tech.onrender.com/api/tasks/get-tasks");
         if (response.status === 200) {
           const task = response.data.data.tasks;
           const p = task?.filter(task => task.isCompleted);
@@ -69,7 +69,7 @@ const Dashboard = () => {
     };
 
     const fetchCourses = async () => {
-      const response = await axios.get("/api/course/my-courses");
+      const response = await axios.get("https://spark-ed-tech.onrender.com/api/course/my-courses");
       setData(response.data.data);
     }
     fetchTasks();

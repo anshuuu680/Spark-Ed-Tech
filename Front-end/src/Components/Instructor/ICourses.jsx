@@ -11,7 +11,7 @@ function ICourses() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("/api/instructor/all-courses");
+        const response = await axios.get("https://spark-ed-tech.onrender.com/api/instructor/all-courses");
         setCourses(response.data.data); // Ensure API response matches
       } catch (err) {
         setError(err.response?.data?.message || "Something went wrong");
@@ -25,7 +25,7 @@ function ICourses() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/instructor/course/${id}`);
+      await axios.delete(`https://spark-ed-tech.onrender.com/api/instructor/course/${id}`);
       setCourses((prevCourses) => prevCourses.filter((course) => course._id !== id));
     } catch (error) {
       console.error("Error deleting course:", error);

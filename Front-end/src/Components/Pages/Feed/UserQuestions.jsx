@@ -15,7 +15,7 @@ const UserQuestions = () => {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get(`/api/feed/get-questions/${username}`);
+        const response = await axios.get(`https://spark-ed-tech.onrender.com/api/feed/get-questions/${username}`);
 
         if (response.status == 200) {
           setQuestions(response.data.data.questions);

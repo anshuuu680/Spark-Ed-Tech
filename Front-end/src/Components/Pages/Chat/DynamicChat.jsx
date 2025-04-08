@@ -51,7 +51,7 @@ const DynamicChat = () => {
     useEffect(()=>{
 
         const fetchChat = async ()=>{
-            const response = await axios.get(`/api/chat/${id}`);
+            const response = await axios.get(`https://spark-ed-tech.onrender.com/api/chat/${id}`);
             setConversation(response?.data.data?.messages);
         }
         fetchChat();

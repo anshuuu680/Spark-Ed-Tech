@@ -12,7 +12,7 @@ const AdminRoutes = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/admin/admin-auth');
+                const response = await axios.get('https://spark-ed-tech.onrender.com/api/admin/admin-auth');
                 if (response.status === 200) {
                     dispatch(setUserData(response.data.data));
                     dispatch(setIsAuthenticated(true));

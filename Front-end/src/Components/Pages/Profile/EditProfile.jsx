@@ -28,7 +28,7 @@ const EditProfile = ({closeModal}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/user-data");
+        const response = await axios.get("https://spark-ed-tech.onrender.com/api/user-data");
         const data = response.data.data;
 
         // Set form data and initial form data with fetched data

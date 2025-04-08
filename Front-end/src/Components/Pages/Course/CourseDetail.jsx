@@ -28,7 +28,7 @@ const CourseDetail = () => {
 
   const onPayment = async ()=>{
    try {
-     const response = await axios.post("/api/payment/create-order",{id})
+     const response = await axios.post("https://spark-ed-tech.onrender.com/api/payment/create-order", { id })
 
      const paymentObject = new Razorpay({
       key: 'rzp_test_drUfjelNqCIKZ6',
@@ -46,7 +46,7 @@ const CourseDetail = () => {
     
         try {
           // Using async/await for better error handling
-          const respon = await axios.post("/api/payment/verify-payment", options);
+          const respon = await axios.post("https://spark-ed-tech.onrender.com/api/payment/verify-payment", options);
           if (respon.status === 200) {
             alert('Payment successful');
           } else {
@@ -81,7 +81,7 @@ const CourseDetail = () => {
 
   useEffect(() => {
     const fetch = async ()=>{
-      const response = await axios.get(`/api/course/${id}`);
+      const response = await axios.get(`https://spark-ed-tech.onrender.com/api/course/${id}`);
       if(response.status==200)
       setData(response.data.data)
     }

@@ -25,7 +25,7 @@ function INavbar() {
     const handleLogout = async () => {
       
         try {
-          const response = await axios.post(`/api/instructor/logout`);
+            const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/logout`);
           dispatch(setUserData({}));
           navigate('/');
         } catch (error) {

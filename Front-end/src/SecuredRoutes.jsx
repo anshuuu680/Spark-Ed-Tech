@@ -13,7 +13,7 @@ const SecuredRoutes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/user-data');
+        const response = await axios.get('https://spark-ed-tech.onrender.com/api/user-data');
         if (response.status === 200) {
           dispatch(setUserData(response.data.data));
           dispatch(setIsAuthenticated(true));

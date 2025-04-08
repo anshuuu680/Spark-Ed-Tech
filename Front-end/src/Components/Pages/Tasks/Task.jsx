@@ -23,7 +23,7 @@ const Task = () => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await axios.get("/api/tasks/get-tasks");
+                const response = await axios.get("https://spark-ed-tech.onrender.com/api/tasks/get-tasks");
                 if (response.status === 200) {
                     const fetchedTasks = response.data.data?.tasks || [];
                     setTasks(fetchedTasks);
@@ -45,7 +45,7 @@ const Task = () => {
         if (task.trim() !== '') {
             const newTask = { title: task, description, isCompleted: false };
             try {
-                const response = await axios.post("/api/tasks", newTask);
+                const response = await axios.post("https://spark-ed-tech.onrender.com/api/tasks", newTask);
                 if (response.status === 200) {
                     setTasks(response.data.data?.tasks);
                     updateProgress(response.data.data?.tasks);
@@ -68,7 +68,7 @@ const Task = () => {
             updatedTask.description = description;
         }
         try {
-            const response = await axios.put(`/api/tasks/${tasks[index]._id}`, updatedTask);
+            const response = await axios.put(`https://spark-ed-tech.onrender.com/api/tasks/${tasks[index]._id}`, updatedTask);
             if (response.status === 200) {
                 const updatedTasks = tasks.map((t, i) => (i === index ? updatedTask : t));
                 setTasks(updatedTasks);
@@ -88,7 +88,7 @@ const Task = () => {
 
     const handleDeleteTask = async (index) => {
         try {
-            const response = await axios.delete(`/api/tasks/${tasks[index]._id}`);
+            const response = await axios.delete(`https://spark-ed-tech.onrender.com/api/tasks/${tasks[index]._id}`);
             if (response.status === 200) {
                 const updatedTasks = tasks.filter((_, i) => i !== index);
                 setTasks(updatedTasks);

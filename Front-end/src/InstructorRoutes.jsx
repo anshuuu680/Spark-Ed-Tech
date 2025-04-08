@@ -13,7 +13,7 @@ const InstructorRoutes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/instructor/data');
+        const response = await axios.get('https://spark-ed-tech.onrender.com/api/instructor/data');
         if (response.status === 200) {
           dispatch(setUserData(response.data.data));
           dispatch(setIsAuthenticated(true));

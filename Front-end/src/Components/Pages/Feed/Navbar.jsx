@@ -20,7 +20,7 @@ const Navbar = ({ user, time, data }) => {
   };
 
   const handleSave = async () => {
-    const response = await axios.post("/api/saved", { data });
+    const response = await axios.post("https://spark-ed-tech.onrender.com/api/saved", { data });
     if (response.status == 200) {
       setSaved(response?.data.data.saved);
       dispatch(setUserData(response?.data.data.user));

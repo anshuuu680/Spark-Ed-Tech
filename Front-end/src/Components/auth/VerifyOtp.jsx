@@ -14,7 +14,7 @@ const VerifyOtp = () => {
 
     const handleVerifyOtp = async () => {
         try {
-            const response = await axios.post('/api/verify-otp', { email: userData?.email, otp });
+            const response = await axios.post('https://spark-ed-tech.onrender.com/api/verify-otp', { email: userData?.email, otp });
             if (response.status === 200) {
                 dispatch(setIsAuthenticated(true));
                 navigate("/");

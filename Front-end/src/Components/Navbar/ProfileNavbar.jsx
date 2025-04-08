@@ -22,7 +22,7 @@ const ProfileNavbar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get(`/api/logout`);
+            await axios.get(`https://spark-ed-tech.onrender.com/api/logout`);
             dispatch(setUserData({}));
             navigate('/')
 

@@ -9,7 +9,7 @@ function IDashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("/api/instructor/all-courses");
+        const response = await axios.get("https://spark-ed-tech.onrender.com/api/instructor/all-courses");
         // Uncomment this if real API is used
         const courses = response.data.data;
       

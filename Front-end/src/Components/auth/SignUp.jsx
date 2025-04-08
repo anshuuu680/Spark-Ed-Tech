@@ -19,7 +19,7 @@ const Signup = () => {
 
   const SignUpUser = async () => {
     try {
-      const response = await axios.post('/api/register', { 
+      const response = await axios.post('https://spark-ed-tech.onrender.com/api/register', { 
         username, 
         email, 
         fullName,  // Include full name in the request

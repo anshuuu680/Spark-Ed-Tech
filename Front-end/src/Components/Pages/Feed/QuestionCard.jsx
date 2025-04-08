@@ -17,7 +17,7 @@ const QuestionCard = ({ obj }) => {
 
   const handleLike = async () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
-    const response = await axios.post('/api/feed/like', { _id, type, userId });
+    const response = await axios.post('https://spark-ed-tech.onrender.com/api/feed/like', { _id, type, userId });
     setAllLikes(response?.data.data);
   }
 

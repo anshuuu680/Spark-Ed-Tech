@@ -20,7 +20,7 @@ const ForgotPassword = () => {
 
     const handleSubmitEmail = async () => {
         try {
-            const response = await axios.post('/api/send-otp', { email });
+            const response = await axios.post('https://spark-ed-tech.onrender.com/api/send-otp', { email });
             if (response.status === 200) {
                 setOtpSent(true);
                 setButtonColor('bg-green-500');
@@ -32,7 +32,7 @@ const ForgotPassword = () => {
 
     const handleVerifyOtp = async () => {
         try {
-            const response = await axios.post('/api/verify-otp', { email, otp });
+            const response = await axios.post('https://spark-ed-tech.onrender.com/api/verify-otp', { email, otp });
             if (response.status === 200) {
                 setOtpVerified(true);
             }
@@ -50,7 +50,7 @@ const ForgotPassword = () => {
         }
 
         try {
-            const response = await axios.post("/api/reset-password", { email, password: newPassword });
+            const response = await axios.post("https://spark-ed-tech.onrender.com/api/reset-password", { email, password: newPassword });
             setSuccess("Password reset successfully!");
             setError("");
             navigate("/password-changed");
