@@ -77,7 +77,7 @@ export const registerUser = async (req, res) => {
     verifyEmail(email, otp);
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-      user._id
+      user?._id
     );
 
     const createdUser = await User.findById(user._id).select(
