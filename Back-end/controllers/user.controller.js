@@ -121,7 +121,7 @@ export const loginUser = async (req, res) => {
         .json(new ApiResponse(404, null, "User does not exist"));
     }
 
-    const isValid = await user.isPasswordCorrect(password, user);
+    const isValid = await user.isPasswordCorrect(password);
 
     if (!isValid) {
       return res
