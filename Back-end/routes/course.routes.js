@@ -6,7 +6,7 @@ import {courseDetail, getAllCourses, myCourses} from '../controllers/course.cont
 
 const router = Router();
 
-router.route("/all-courses").get(verifyJWT,getAllCourses);
+router.route("/all-courses").get(getAllCourses);
 router.route("/my-courses").get(verifyJWT,myCourses);
 router.route("/:id").get(verifyJWT,courseDetail);
 
