@@ -15,7 +15,6 @@ const Login = () => {
 
   const loginUser = async ({ email, password }) => {
     try {
-      console.log("trying to log in:", import.meta.env.VITE_BACKEND_URL);
 
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/login`,
@@ -24,7 +23,6 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.data);
         dispatch(setUserData(response.data.data.user));
         dispatch(setIsAuthenticated(true));
         if (response.data.data.user.role === "admin") {
