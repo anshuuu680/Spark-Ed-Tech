@@ -15,6 +15,7 @@ const SecuredRoutes = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user-data`, { withCredentials: true });
         if (response.status === 200) {
+          console.log(response.data.data);
           dispatch(setUserData(response.data.data));
           dispatch(setIsAuthenticated(true));
         } else {
