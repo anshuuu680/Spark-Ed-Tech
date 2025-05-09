@@ -66,8 +66,9 @@ function ICreate() {
     );
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/create`, data,  { withCredentials: true },{
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/create`, data,{
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true 
       });
 
       if (response.status === 200) {
