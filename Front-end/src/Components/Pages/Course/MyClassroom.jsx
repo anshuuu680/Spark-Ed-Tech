@@ -22,7 +22,7 @@ const MyClassroom = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`https://spark-ed-tech.onrender.com/api/course/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/${id}`, { withCredentials: true });
         if (response.status === 200) {
           setData(response.data.data);
         }

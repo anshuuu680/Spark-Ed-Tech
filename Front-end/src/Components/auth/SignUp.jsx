@@ -19,12 +19,12 @@ const Signup = () => {
 
   const SignUpUser = async () => {
     try {
-      const response = await axios.post('https://spark-ed-tech.onrender.com/api/register', { 
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, { 
         username, 
         email, 
         fullName,  // Include full name in the request
         password 
-      });
+      }, { withCredentials: true });
 
       if (response.status === 200) {
         dispatch(setUserData(response?.data.data));

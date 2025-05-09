@@ -15,10 +15,9 @@ const HeaderUni = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://spark-ed-tech.onrender.com/api/user-data", {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user-data`, {
           withCredentials: true,
         });
-
         if (response.status === 200) {
           console.log(response.data.data);
           setIsAuthenticated(true);
@@ -36,7 +35,10 @@ const HeaderUni = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get(`https://spark-ed-tech.onrender.com/api/logout`);
+      
+      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
+        withCredentials: true,
+      });
 
       setIsAuthenticated(false);
       navigate("/");

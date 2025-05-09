@@ -9,15 +9,13 @@ function IDashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("https://spark-ed-tech.onrender.com/api/instructor/all-courses");
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/instructor/all-courses`, { withCredentials: true });
         // Uncomment this if real API is used
         const courses = response.data.data;
       
 
         setTotalCourses(courses.length);
-        setTotalStudents(
-          courses.reduce((sum, course) => sum + course.students, 0)
-        );
+       
         setRecentCourses(courses);
       } catch (err) {
         console.error("Failed to fetch courses", err);
@@ -63,9 +61,9 @@ function IDashboard() {
 
       {/* Recent Courses as Cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(700px, 1fr))", gap: "20px" }}>
-        {recentCourses.map((course) => (
+        {recentCourses.map((course,index) => (
         <div
-        key={course.id}
+        key={index}
         style={{
           backgroundColor: "white",
           padding: "15px",

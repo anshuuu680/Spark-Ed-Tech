@@ -9,8 +9,12 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
 export const createPost = async (req, res) => {
+ try {
   const { title, description } = req.body;
   const postImageLocalPath = req.file?.path;
+
+
+  console.log(title,description);
 
   if (!postImageLocalPath) {
     throw new ApiError(400, "Image is required");
@@ -28,7 +32,13 @@ export const createPost = async (req, res) => {
   res
     .status(200)
     .json(new ApiResponse(200, newPost, "Post uploaded successfully"));
-};
+
+
+ } catch (error) {
+  console.log(error.message);
+ }
+
+  };
 
 export const createQuestion = async (req, res) => {
   const { question } = req.body;
@@ -263,6 +273,8 @@ export const checkLike = async (req, res) => {
   try {
     const { _id, type, userId } = req.body;
 
+    console.log("checkinhg")
+
     const existingLike = await Like.findOne({
       item: _id,
       itemType: type,
@@ -280,7 +292,6 @@ export const getPostData = async (req, res) => {
   try {
     const postId = req.query.id;
     const type = req.query.type;
-    const userId = req.query.userId;
 
     let result;
 
@@ -301,8 +312,10 @@ export const getPostData = async (req, res) => {
     const existingLike = await Like.findOne({
       item: postId,
       itemType: type,
-      likedBy: new mongoose.Types.ObjectId(userId),
+      likedBy: req.user?._id,
     });
+
+
 
     const comments = await Comment.find({
       item: postId,
@@ -320,14 +333,16 @@ export const getPostData = async (req, res) => {
         });
 
         const isLiked = likes.some(
-          (like) => like.likedBy.toString() === userId
+          (like) => like.likedBy.toString() == req.user?._id
         );
+
 
         return { ...comment.toObject(), likes, isLiked };
       })
     );
 
     const totalLikes = await Like.find({ item: postId, itemType: type });
+
 
     res.status(200).json(
       new ApiResponse(

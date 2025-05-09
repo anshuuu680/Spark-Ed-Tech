@@ -16,13 +16,10 @@ const ProfileHeader = () => {
     return (
         <section className=" w-full flex items-center justify-between bg-dark-card py-3 md:px-24 px-4">
             <div className="logo-container w-35 flex justify-center gap-1 items-center text-white">
-                <Link to='/' style={customStyles}>
-                    <SiStudyverse style={{ color: "white", fontSize: "2.6rem" }} />
-                    <span style={{ letterSpacing: '1px', fontSize: '0.8rem' }}>Unlocking <br /> <span style={{ color: "#008080" }}>Potential</span></span>
-                </Link>
+               
             </div>
             <div className="flex gap-4">
-                <div className="px-2 border border-[#646262] rounded-md flex items-center font-semibold text-[#ecebeb] gap-2 hover:bg-[#ecebeb] hover:text-black hover:cursor-pointer transition duration-400 ease-in-out group py-2">
+                <div className="px-2 border text-sm border-[#646262] rounded-md flex items-center font-base text-[#ecebeb] gap-2 hover:bg-[#ecebeb] hover:text-black hover:cursor-pointer transition duration-400 ease-in-out group py-2">
                     <Link to="/users/dashboard">My Classroom</Link>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

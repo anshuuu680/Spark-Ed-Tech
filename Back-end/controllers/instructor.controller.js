@@ -412,6 +412,7 @@ export const loginInstructor = async (req, res) => {
 };
 
 export const logoutInstructor = asyncHandler(async (req, res) => {
+
   await Instructor.findByIdAndUpdate(
     req.instructor._id,
     {

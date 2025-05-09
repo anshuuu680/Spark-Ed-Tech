@@ -10,12 +10,12 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = ({ children }) => {
-    const { userData } = useSelector(selectUserData); // Assuming selectUserData returns the user data directly
+    const { userData } = useSelector(selectUserData); 
     const [socket, setSocket] = useState(null);
 
     const socketInstance = useMemo(() => {
         if (userData?._id) {
-            return io('https://spark-ed-tech.onrender.com', {
+            return io(import.meta.env.VITE_SOCKET_URI, {
                 withCredentials: true,
                 query: { userId: userData._id }
             });

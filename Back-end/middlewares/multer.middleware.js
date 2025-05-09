@@ -12,23 +12,22 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter to allow only video and image formats
+
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [
-    "video/mp4", "video/mpeg", "video/ogg", "video/webm", "video/avi", // Video formats
-    "image/jpeg", "image/png", "image/gif", "image/webp"               // Image formats
+    "video/mp4", "video/mpeg", "video/ogg", "video/webm", "video/avi", 
+    "image/jpeg", "image/png", "image/gif", "image/webp"               
   ];
   if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true); // Accept the file
+    cb(null, true); 
   } else {
     cb(new Error("Invalid file type. Only videos and images are allowed."), false); // Reject the file
   }
 };
 
-// Multer instance for uploading both videos and images
 export const upload = multer({
   
   storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // Limit file size to 50 MB
-  fileFilter, // Validate file types
+  limits: { fileSize: 50 * 1024 * 1024 }, 
+  fileFilter,
 });

@@ -53,7 +53,7 @@ const ISignUp = () => {
     });
 
     try {
-      const response = await axios.post("https://spark-ed-tech.onrender.com/api/instructor/register", formDataToSend, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/register`, formDataToSend, { withCredentials: true }, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

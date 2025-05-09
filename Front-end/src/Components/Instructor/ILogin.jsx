@@ -15,7 +15,7 @@ const ILogin = () => {
         e.preventDefault();
         setError("");
         try {
-            const response = await axios.post("https://spark-ed-tech.onrender.com/api/instructor/login", { email, password });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/login`, { email, password }, { withCredentials: true });
             dispatch(setUserData(response.data.data.instructor));
             dispatch(setIsAuthenticated(true));
             navigate('/instructor/dashboard');

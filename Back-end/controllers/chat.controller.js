@@ -63,3 +63,38 @@ export const privateChat = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 });
+
+export const startChat = asyncHandler(async (req, res) => {
+ try {
+  const { id } = req.params;
+
+  console.log("start",id);
+
+  const existing = await Conversation.findOne({ to: id });
+
+  if (existing) {
+    res.status(200).json(new ApiResponse(200, _, "Already exists"));
+  }
+
+  const conversation = await Conversation.create({
+    to: id,
+    from: req.user?._id,
+  });
+
+  await conversation.save();
+
+
+    res
+    .status(200)
+    .json(new ApiResponse(200,conversation,"Conversation created"));
+
+
+  
+ } catch (error) {
+  console.log(error.message);
+ }
+
+
+
+
+});

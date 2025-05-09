@@ -14,7 +14,7 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONT_END_URL,
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   },
 });
@@ -49,13 +49,15 @@ io.on("connection", (socket) => {
         })
         .populate("lastMessage");
 
+        console.log(conversations);
+ 
       const populatedConversations = await Promise.all(
         conversations.map(async (conversation) => {
           const lastMessage = conversation.lastMessage
             ? await Message.findById(conversation.lastMessage)
             : null;
 
-          const otherUserId = conversation.to._id.equals(userId)
+          const otherUserId = conversation?.to?._id.equals(userId)
             ? conversation.from._id
             : conversation.to._id;
 
@@ -75,7 +77,7 @@ io.on("connection", (socket) => {
                   sender: lastMessage.sender,
                 }
               : null,
-            unseenMessages: unseenMessagesCount, // Add unseen messages count
+            unseenMessages: unseenMessagesCount,
           };
         })
       );

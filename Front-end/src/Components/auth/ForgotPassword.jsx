@@ -20,7 +20,7 @@ const ForgotPassword = () => {
 
     const handleSubmitEmail = async () => {
         try {
-            const response = await axios.post('https://spark-ed-tech.onrender.com/api/send-otp', { email });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/send-otp`, { email }, { withCredentials: true });
             if (response.status === 200) {
                 setOtpSent(true);
                 setButtonColor('bg-green-500');

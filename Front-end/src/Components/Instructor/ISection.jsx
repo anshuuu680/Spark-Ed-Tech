@@ -13,7 +13,7 @@ function ISection() {
   useEffect(() => {
     // Fetch course data
     axios
-      .get(`/instructor/course-data/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/instructor/course-data/${id}`)
       .then((res) => setCourse(res.data))
       .catch((err) => console.error(err));
   }, [id]);
@@ -67,7 +67,7 @@ function ISection() {
 
     try {
       
-      const res = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/create-section/${id}`, formData, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/create-section/${id}`, formData, { withCredentials: true }, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setSections([...sections, res.data.data.section]);

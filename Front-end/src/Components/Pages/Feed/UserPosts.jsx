@@ -14,7 +14,7 @@ const UserPosts = () => {
     const fetchData = async () => {
 
       try {
-        const response = await axios.get(`https://spark-ed-tech.onrender.com/api/feed/get-posts/${username}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/feed/get-posts/${username}`, { withCredentials: true });
 
         if(response.status==200){
           setPosts(response.data.data.posts);

@@ -34,8 +34,8 @@ const FeedPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://spark-ed-tech.onrender.com/api/feed/post-data?id=${_id}&type=${type}`, {
-                    params: { userId }
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/feed/post-data?id=${_id}&type=${type}`, { withCredentials: true }, {
+                    
                 });
                 if (response.status === 200) {
                     setPostData(response.data.data.result);
@@ -62,7 +62,7 @@ const FeedPage = () => {
     const handleLike = async () => {
         try {
             setIsLiked(prevIsLiked => !prevIsLiked);
-            const response = await axios.post('https://spark-ed-tech.onrender.com/api/feed/like', { _id, type, userId });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/like`, { _id, type, userId }, { withCredentials: true });
             setAllLikes(response.data.data);
         } catch (error) {
             console.error("Error liking post:", error);
@@ -76,7 +76,7 @@ const FeedPage = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://spark-ed-tech.onrender.com/api/feed/add-comment", { value, type, _id });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/add-comment`, { value, type, _id },{withCredentials:true});
             setIsOpen(false)
             setValue('');
             setComments(response.data.data);

@@ -33,11 +33,20 @@ const CreatePost = () => {
         formData.append("description", description);
         formData.append("image", image);
 
-        response = await axios.post("https://spark-ed-tech.onrender.com/api/feed/create-post", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+       
+        response = await axios.post(
+         `${import.meta.env.VITE_BACKEND_URL}/feed/create-post`,
+          formData,
+          {
+           
+            headers: { "Content-Type": "multipart/form-data" },
+            withCredentials:true,
+          },
+        );
+
+        
       } else {
-        response = await axios.post("https://spark-ed-tech.onrender.com/api/feed/create-question", { question });
+        response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/create-question`, { question }, { withCredentials: true });
       }
 
       if (response.status === 200) {

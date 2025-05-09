@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { LuLayoutDashboard } from 'react-icons/lu';
-import { GrNotes } from 'react-icons/gr';
 import { TbBrandFeedly } from 'react-icons/tb';
 import { RiTaskLine } from 'react-icons/ri';
 import { FiMessageSquare } from 'react-icons/fi';
@@ -27,7 +26,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get(`https://spark-ed-tech.onrender.com/api/logout`);
+      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/logout`, { withCredentials: true });
       dispatch(setUserData({}));
       navigate('/');
     } catch (error) {
@@ -51,7 +50,7 @@ const Navbar = () => {
             return (
               <li key={index} onClick={handleLogout} className="flex items-center">
                 <NavLink
-                  className={`${commonClassName} ${isActive ? activeClassName : hoverClassName}`}
+                  className={`${commonClassName}  ${isActive ? activeClassName : hoverClassName}`}
                 >
                   <link.icon className="text-2xl" />
                 </NavLink>
@@ -63,7 +62,7 @@ const Navbar = () => {
             <li key={index} className="flex items-center">
               <NavLink
                 to={`/users${link.to}`}
-                className={`${commonClassName} ${isActive ? activeClassName : hoverClassName}`}
+                className={`${commonClassName} font-semibold ${isActive ? activeClassName : hoverClassName}`}
               >
                 <link.icon className="text-2xl" />
               </NavLink>

@@ -34,7 +34,7 @@ const IVerify = () => {
         setSuccess(null);
 
         try {
-            const response = await axios.post("https://spark-ed-tech.onrender.com/api/instructor/verify-otp", { email, otp });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/verify-otp`, { email, otp }, { withCredentials: true });
             dispatch(setIsAuthenticated(true));
             navigate("/instructor/dashboard");
             setSuccess(response.data.message || "OTP Verified Successfully!");

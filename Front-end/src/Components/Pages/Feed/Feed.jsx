@@ -16,7 +16,7 @@ const Feed = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('https://spark-ed-tech.onrender.com/api/feed/get-posts');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/feed/get-posts`, { withCredentials: true });
         setPosts(response.data.data.sortedFeed);
         setCount(response.data.data.postCount + response.data.data.questionCount);
         setIsLoading(false);

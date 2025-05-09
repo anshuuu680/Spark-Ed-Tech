@@ -66,7 +66,7 @@ function ICreate() {
     );
 
     try {
-      const response = await axios.post("https://spark-ed-tech.onrender.com/api/instructor/create", data, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/create`, data,  { withCredentials: true },{
         headers: { "Content-Type": "multipart/form-data" },
       });
 

@@ -10,6 +10,7 @@ const QuestionCard = ({ obj }) => {
   const { postedBy, question, _id, createdAt, type, likes } = obj;
   const timeDifference = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
   const [isLiked, setIsLiked] = useState(obj?.isLiked);
+  const [allLikes,setAllLikes] =  useState();
 
   const navigate = useNavigate();
   const { userData } = useSelector(selectUserData);
@@ -17,7 +18,7 @@ const QuestionCard = ({ obj }) => {
 
   const handleLike = async () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
-    const response = await axios.post('https://spark-ed-tech.onrender.com/api/feed/like', { _id, type, userId });
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/like`, { _id, type, userId }, { withCredentials: true });
     setAllLikes(response?.data.data);
   }
 

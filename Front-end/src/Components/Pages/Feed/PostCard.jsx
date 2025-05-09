@@ -22,7 +22,7 @@ const PostCard = ({ obj }) => {
 
   const handleLike = async () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
-    await axios.post('https://spark-ed-tech.onrender.com/api/feed/like', { _id, type, userId });
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/like`, { _id, type, userId }, { withCredentials: true });
   };
 
   return (

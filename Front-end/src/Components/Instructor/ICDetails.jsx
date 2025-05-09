@@ -22,7 +22,7 @@ function ICDetails() {
   useEffect(() => {
     const fetchCourseDetails = async () => {
       try {
-        const response = await axios.get(`https://spark-ed-tech.onrender.com/api/instructor/courses/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/instructor/courses/${id}`, { withCredentials: true });
         const { course, sections } = response.data.data;
         setCourse({ course, sections });
        
@@ -69,7 +69,7 @@ function ICDetails() {
     try {
       setIsLoading(true)
       const response = await axios.post(
-        `https://spark-ed-tech.onrender.com/api/instructor/add-lecture`,
+        `${import.meta.env.VITE_BACKEND_URL}/instructor/add-lecture`, { withCredentials: true },
         formData,
         {
           headers: {
@@ -107,9 +107,9 @@ function ICDetails() {
     }
 
     try {
-      const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/${id}/add-section`, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/${id}/add-section`, {
         title: newSectionTitle,
-      });
+      }, { withCredentials: true });
 
       if(response.status==200){
         toast.success("Lecture has been added.");
@@ -127,11 +127,11 @@ function ICDetails() {
 
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/${id}/details-change`, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/${id}/details-change`, {
         title: editedTitle,
         price: editedPrice,
         description: editedDescription,
-      });
+      }, { withCredentials: true });
 
       if(response.status==200){
         toast.success("Details has been changed.");
@@ -153,7 +153,7 @@ function ICDetails() {
 
   const deleteSection = async (sectionId) => {
     try {
-      const response = await axios.post(`https://spark-ed-tech.onrender.com/api/instructor/delete-section`, { sectionId });
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/delete-section`, { sectionId }, { withCredentials: true });
 
       if(response.status==200){
         toast.success("Section has been Deleted.");

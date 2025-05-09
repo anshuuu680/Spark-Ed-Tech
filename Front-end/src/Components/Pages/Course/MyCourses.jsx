@@ -9,7 +9,7 @@ function MyCourses() {
   // Fetch user's courses
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("https://spark-ed-tech.onrender.com/api/course/my-courses");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/my-courses`, { withCredentials: true });
       setData(response.data.data); // Assuming API response has { data: { data: [...] } }
     } catch (error) {
       console.error("Error fetching courses:", error);

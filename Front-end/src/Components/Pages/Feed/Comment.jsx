@@ -12,7 +12,7 @@ const Comment = ({ comment, userId }) => {
     const handleLike = async () => {
         try {
             setIsLiked(prevIsLiked => !prevIsLiked);
-            const response = await axios.post('https://spark-ed-tech.onrender.com/api/feed/like', { _id, type: "comment", userId });
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/like`, { _id, type: "comment", userId }, { withCredentials: true });
             setAllLikes(response.data.data); // Assumes response.data.data returns the new number of likes
         } catch (error) {
             console.error("Error liking comment:", error);

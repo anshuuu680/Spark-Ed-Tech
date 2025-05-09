@@ -18,43 +18,36 @@ import {
 export const description = "A donut chart with text"
 
 const chartData = [
-  { browser: "chrome", visitors: 10, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 30, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 20, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 15, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 17, fill: "var(--color-other)" },
+  { browser: "chrome", progress: 10, fill: "var(--color-chrome)" },
+  { browser: "safari", progress: 30, fill: "var(--color-safari)" },
+  { browser: "firefox", progress: 20, fill: "var(--color-firefox)" },
+ 
 ]
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  progress: {
+    label: "Progress",
   },
   chrome: {
-    label: "Chrome",
+    label: "React",
     color: "hsl(var(--chart-1))",
   },
   safari: {
-    label: "Safari",
+    label: "MERN",
     color: "hsl(var(--chart-2))",
   },
   firefox: {
-    label: "Firefox",
+    label: "Flutter",
     color: "hsl(var(--chart-3))",
   },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
+ 
 }
 
-const ChartPie = () => {
+const ChartPie = ({course}) => {
+
   
   const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
+    return chartData.reduce((acc, curr) => acc + curr.progress, 0)
   }, [])
 
   return (
@@ -72,7 +65,7 @@ const ChartPie = () => {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
+              dataKey="progress"
               nameKey="browser"
               innerRadius={65}
             >

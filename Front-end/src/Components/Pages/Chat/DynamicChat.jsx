@@ -51,7 +51,7 @@ const DynamicChat = () => {
     useEffect(()=>{
 
         const fetchChat = async ()=>{
-            const response = await axios.get(`https://spark-ed-tech.onrender.com/api/chat/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/chat/${id}`, { withCredentials: true });
             setConversation(response?.data.data?.messages);
         }
         fetchChat();
@@ -132,7 +132,7 @@ const DynamicChat = () => {
 
 
     return (
-        <div className='w-full h-full  flex flex-col gap-2 rounded-md'>
+        <div className='w-full h-full  flex flex-col gap-2 rounded-md pt-4'>
             <ChatNav user = {user} status={status}  />
             <ChatWindow conversation={conversation} userData={userData} />
 

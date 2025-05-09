@@ -3,7 +3,7 @@ import { Delete } from "lucide-react";
 
 const ChatNav = ({ user }) => {
     return (
-        <nav className="w-full h-16 rounded-md flex items-center px-4 text-gray-900 dark:text-gray-100 bg-white dark:bg-dark-card sm:px-6 md:px-8 lg:px-12">
+        <nav className="w-full h-16 rounded-md flex items-center px-4 text-gray-900 dark:text-gray-100 bg-white dark:bg-dark-card sm:px-6 md:px-8 lg:px-4">
             <div className="flex gap-4 w-full items-center justify-between">
                 <div className="flex gap-4 items-center">
                     <div className="profile w-10 h-10 sm:w-12 sm:h-12 rounded-full cursor-pointer">
@@ -15,7 +15,6 @@ const ChatNav = ({ user }) => {
                     </div>
                 </div>
 
-                {/* Delete Button with Confirmation Dialog */}
                 <Dialog>
                     <DialogTrigger asChild>
                         <button className="flex items-center bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition">

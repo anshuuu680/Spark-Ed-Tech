@@ -11,7 +11,7 @@ const ChatWindow = ({conversation,userData}) => {
     
     let lastSenderId = null;
     return (
-        <div className="w-full  max-h-[65vh]  overflow-y-auto flex flex-col flex-grow no-scrollbar md:px-1 ">
+        <div className="w-full  max-h-[70vh]  overflow-y-auto flex flex-col flex-grow no-scrollbar md:px-1">
             {conversation?.map((msg) => {
                 const isCurrentUser = msg?.sender._id === userData._id;
                 const isNewSender = msg?.sender._id !== lastSenderId;

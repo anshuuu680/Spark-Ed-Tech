@@ -15,7 +15,7 @@ const UserPage = () => {
     const fetchUser = async () => {
 
 
-      const response = await axios.get(`https://spark-ed-tech.onrender.com/api/user/${username}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/${username}`, { withCredentials: true });
       setUser(response?.data.data.user);
       setCount(
         {

@@ -5,13 +5,11 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import {app,server} from "./Socket/socket.js"
-import path from "path";
 
 dotenv.config({
   path: "./.env",
 });
 
-// const _dirname = path.resolve();
 
 
 app.use(cookieParser());
@@ -22,7 +20,7 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST","PUT","DELETE"],
     credentials: true,
   })
 );
@@ -64,18 +62,13 @@ app.use("/api/chat", chatRouter);
 app.use("/api/instructor", instructorRouter);
 app.use("/api/payment",paymentRouter);
 
-app.use((err, req, res, next) => {
+app.use((err, _, res, next) => {
   const statusCode = err.statusCode || 500;
   res.status(statusCode).json({
     success: false,
     message: err.message || "Internal Server Error",
   });
 });
-
-// app.use(express.static(path.join(_dirname,"/Front-end/dist")));
-// app.get('*',(_,res)=>{
-//   res.sendFile(path.resolve(_dirname,"Front-end","dist","index.html"));
-// })
 
 const port = process.env.PORT || 3000;
 

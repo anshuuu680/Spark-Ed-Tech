@@ -11,8 +11,9 @@ import { verifyEmail } from "../emails/VerifyEmail.js";
 
 const options = {
   httpOnly: true,
-  secure: true,
+  secure: false,
   sameSite: "None",
+  path: '/',
 };
 
 
@@ -104,7 +105,8 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { username, email, password } = req.body;
 
-  console.log("Getting the values here:", { email, password });
+
+
 
   if (!(username || email)) {
     return res
@@ -137,7 +139,7 @@ export const loginUser = async (req, res) => {
       "-password -refreshToken"
     );
 
-    console.log("logged in User:", loggedInUser);
+
 
     return res
       .status(200)
@@ -368,6 +370,8 @@ export const updateUser = asyncHandler(async (req, res) => {
 
 export const allUsers = asyncHandler(async (req, res) => {
   try {
+
+
     // Find all users except the current user
     const users = await User.find(
       { _id: { $ne: req.user?._id } }, // Exclude current user by _id

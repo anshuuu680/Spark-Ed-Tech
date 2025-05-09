@@ -5,6 +5,8 @@ export const addTask = async (req, res) => {
   try {
     const { title, description, isCompleted } = req.body;
 
+    console.log(title,description,isCompleted);
+
     if (!title) {
       return res
         .status(400)
