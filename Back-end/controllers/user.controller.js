@@ -12,7 +12,7 @@ import { verifyEmail } from "../emails/VerifyEmail.js";
 const options = {
   httpOnly: true,
   secure: false,
-  sameSite: "None",
+  sameSite: "none",
   path: '/',
 };
 

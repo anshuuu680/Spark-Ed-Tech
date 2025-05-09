@@ -5,7 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 const options = {
   httpOnly: true,
   secure: true,
-  sameSite: "None",
+  sameSite: "none",
 };
   
 
