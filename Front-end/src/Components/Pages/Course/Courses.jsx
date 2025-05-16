@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
+import { set } from "date-fns";
 
 const Courses = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchCourses = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/all-courses`, { withCredentials: true });
         if (response.status === 200) {
+
           setCourses(response.data.data);
           console.log(response.data.data)
+          setIsLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        // console.error("Error fetching courses:", error);
       }
     };
 
@@ -35,8 +41,12 @@ const Courses = () => {
 
       <div className="max-w-7xl mx-auto py-12 px-6">
         <h2 className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-10">All Courses</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map((course) => (
+        
+
+          {isLoading ? (<div className="flex  justify-center items-center h-[500px]">
+           
+            <ClipLoader color='skyBlue' />  
+            </div>) : ( <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">{courses.map((course) => (
             <div key={course._id} className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden hover:scale-105 transition">
               <img src={course?.thumbnail} alt={course.title} className="w-full h-48 object-cover" />
               <div className="p-4">
@@ -49,8 +59,11 @@ const Courses = () => {
                 <Link to={`/courses/${course?._id}`} className="block mt-4 px-4 py-2 text-center bg-blue-600 text-white rounded-md hover:bg-blue-700">View Details</Link>
               </div>
             </div>
-          ))}
-        </div>
+          ))} </div>) }
+
+
+         
+        
       </div>
     </div>
   );

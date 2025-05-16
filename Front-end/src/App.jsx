@@ -24,31 +24,7 @@ import ICDetails from './Components/Instructor/ICDetails';
 import MyClassroom from './Components/Pages/Course/MyClassroom';
 import MyCourses from './Components/Pages/Course/MyCourses';
 
-const Content = () => {
-  return (
-    <Routes>
-      <Route path="/users" element={<Layout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="tasks" element={<Task />} />
-       
-        <Route path="my-courses" element={<MyCourses/>}/>
-        <Route path="my-courses/:id" element={<MyClassroom/>}/>
-        <Route path="feed" element={<Feed />} />
-        <Route path="feed/:postId" element={<FeedPage />} />
-        <Route path="chat" element={<Chat />}>
-          <Route path=":id" element={<DynamicChat />} />
-        </Route>
-        <Route path=":username" element={<UserPageLayout />}>
-          <Route path="posts" element={<UserPosts />} />
-          <Route path="questions" element={<UserQuestions />} />
-        </Route>
-      </Route>
-      <Route path="/my-account" element={<ProfileLayout />}>
-        <Route path="my-profile" element={<MyProfile />} />
-      </Route>
-    </Routes>
-  );
-};
+
 
 const App = () => {
   return (
@@ -89,8 +65,27 @@ const App = () => {
             <Route path="transactions" element={<AdminTransactions />} />
           </Route>
         </Route>
+
+        
         <Route element={<SecuredRoutes />}>
-          <Route path='/*' element={<Content />} />
+          <Route path="/users" element={<Layout />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="tasks" element={<Task />} />
+        <Route path="my-courses" element={<MyCourses/>}/>
+        <Route path="my-courses/:id" element={<MyClassroom/>}/>
+        <Route path="feed" element={<Feed />} />
+        <Route path="feed/:postId" element={<FeedPage />} />
+        <Route path="chat" element={<Chat />}>
+          <Route path=":id" element={<DynamicChat />} />
+        </Route>
+        <Route path=":username" element={<UserPageLayout />}>
+          <Route path="posts" element={<UserPosts />} />
+          <Route path="questions" element={<UserQuestions />} />
+        </Route>
+      </Route>
+      <Route path="/my-account" element={<ProfileLayout />}>
+        <Route path="my-profile" element={<MyProfile />} />
+      </Route>
         </Route>
       </Routes>
     </BrowserRouter>

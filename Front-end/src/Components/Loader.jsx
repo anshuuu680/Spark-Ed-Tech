@@ -1,17 +1,7 @@
-import React from 'react';
-import './Loader.css'; // Import the CSS for styling
-
 const Loader = () => {
   return (
-    <div className="loader-container w-full h-full dark:bg-dark-background bg-primary-foreground">
-      <div className="loader"></div>
-      <div className="loader"></div>
-      <div className="loader"></div>
-      <div className="loader"></div>
-      <div className="loader"></div>
-      <div className="loader"></div>
-      <div className="loader"></div>
-      <div className="loader"></div>
+    <div className="flex justify-center items-center h-screen w-full">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
     </div>
   );
 };

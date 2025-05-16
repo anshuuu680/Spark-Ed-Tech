@@ -69,12 +69,13 @@ function ICDetails() {
     try {
       setIsLoading(true)
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/instructor/add-lecture`, { withCredentials: true },
+        `${import.meta.env.VITE_BACKEND_URL}/instructor/add-lecture`, 
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
 

@@ -8,7 +8,7 @@ import Loader from './Components/Loader.jsx';
 const SecuredRoutes = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const [isLoading, setIsLoading] = useState(true); // Start loading as true
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     const fetchData = async () => {

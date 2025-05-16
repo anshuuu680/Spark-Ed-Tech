@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 function MyCourses() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch user's courses
   const fetchCourses = async () => {
+    setIsLoading(true);
+
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/my-courses`, { withCredentials: true });
-      setData(response.data.data); // Assuming API response has { data: { data: [...] } }
+      setData(response.data.data);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching courses:", error);
     }
   };
@@ -26,7 +32,11 @@ function MyCourses() {
         My Learnings
       </h1>
 
-      {/* Course Cards */}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-full">
+          <ClipLoader color="skyBlue" />
+        </div>
+      ):
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {data?.map((data, index) => (
           <div
@@ -60,6 +70,7 @@ function MyCourses() {
           </div>
         ))}
       </div>
+}
     </section>
   );
 }

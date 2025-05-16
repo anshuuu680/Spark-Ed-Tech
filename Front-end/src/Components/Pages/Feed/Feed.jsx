@@ -5,6 +5,7 @@ import QuestionCard from './QuestionCard';
 import CreatePost from './CreatePost';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@/Features/userDetails';
+import { ClipLoader } from 'react-spinners';
 
 const Feed = () => {
   const { userData } = useSelector(selectUserData);
@@ -38,8 +39,12 @@ const Feed = () => {
       {/* Create Post Button for Mobile */}
 
       <div className="flex w-full gap-8">
-        {/* Main Feed */}
-        <div className="sm:w-2/3 w-full min-h-[120vh] sm:p-4 p-2 flex flex-col ">
+
+        {isLoading ? (
+          <div className="flex w-2/3 justify-center items-center h-full">
+            <ClipLoader color='skyBlue'/>
+            </div>
+        ) :   <div className="sm:w-2/3 w-full min-h-[120vh] sm:p-4 p-2 flex flex-col ">
           {posts?.length > 0 ? (
             <div className='h-[80vh] w-full flex flex-col gap-4 pb-4 overflow-y-auto no-scrollbar'>
               {posts.map((post) =>
@@ -56,6 +61,9 @@ const Feed = () => {
             </div>
           )}
         </div>
+            }
+      
+      
 
         {/* User Info and Create Post Section */}
         <div className="hidden sm:grid w-[40vh] mt-5">
@@ -86,7 +94,7 @@ const Feed = () => {
                 <div className="h-16 bg-gray-100 dark:bg-dark-inside-card rounded-md flex flex-col justify-center items-center text-gray-900 dark:text-gray-100">
                   <h1 className="text-sm">Saved</h1>
                   <h1 className="font-semibold">
-                    {userData?.savedPosts.length + userData?.savedQuestions.length}
+                   1
                   </h1>
                 </div>
               </div>

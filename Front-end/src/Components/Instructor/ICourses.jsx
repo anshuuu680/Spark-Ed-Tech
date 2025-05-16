@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios"; 
+import { ClipLoader } from "react-spinners";
 
 function ICourses() {
   const [courses, setCourses] = useState([]);
@@ -12,7 +13,7 @@ function ICourses() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/instructor/all-courses`, { withCredentials: true });
-        setCourses(response.data.data); // Ensure API response matches
+        setCourses(response.data.data); 
       } catch (err) {
         setError(err.response?.data?.message || "Something went wrong");
       } finally {
@@ -38,7 +39,10 @@ function ICourses() {
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Instructor Courses</h1>
 
         {loading ? (
-          <p className="text-center text-gray-500">Loading courses...</p>
+         <div className="flex justify-center items-center h-screen"> 
+         <ClipLoader color='skyBlue'/>
+         </div>
+
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : courses.length === 0 ? (

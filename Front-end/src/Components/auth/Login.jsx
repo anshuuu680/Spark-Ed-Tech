@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUserData, setIsAuthenticated } from "../../Features/userDetails";
-import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +14,6 @@ const Login = () => {
 
   const loginUser = async ({ email, password }) => {
     try {
-      console.log("trying to log in:", import.meta.env.VITE_BACKEND_URL);
 
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/login`,
@@ -24,7 +22,6 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.data);
         dispatch(setUserData(response.data.data.user));
         dispatch(setIsAuthenticated(true));
         if (response.data.data.user.role === "admin") {
@@ -49,9 +46,9 @@ const Login = () => {
   };
 
   const handleDemoLogin = () => {
-    setEmail("ap214893@gmail.com");
+    setEmail("ropip62865@bamsrad.com");
     setPassword("1");
-    loginUser({ email: "ap214893@gmail.com", password: "1" });
+    loginUser({ email: "ropip62865@bamsrad.com", password: "1" });
   };
 
   return (

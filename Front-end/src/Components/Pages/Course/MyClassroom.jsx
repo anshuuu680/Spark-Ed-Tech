@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { Video } from "lucide-react";
+import { set } from "date-fns";
+import { ClipLoader } from "react-spinners";
 
 const MyClassroom = () => {
   const { id } = useParams();
@@ -10,6 +12,7 @@ const MyClassroom = () => {
   const [data, setData] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const videoRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
@@ -20,13 +23,17 @@ const MyClassroom = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchCourse = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/${id}`, { withCredentials: true });
         if (response.status === 200) {
-          setData(response.data.data);
+          setIsLoading(false);
+          console.log(response.data.data.course);
+          setData(response.data.data.course);
         }
       } catch (error) {
+        setIsLoading(false);
         console.error("Error fetching course:", error);
       }
     };
@@ -35,7 +42,39 @@ const MyClassroom = () => {
 
   return (
     <div className="w-full h-[95vh] mx-auto py-8 px-4 md:px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-[40vw] overflow-y-auto no-scrollbar">
-      
+     
+     {isLoading ? (
+        <div className="flex justify-center items-center h-full">
+          <ClipLoader color="skyBlue" />
+        </div>
+      ) : (
+        <>
+          {data ? (
+            <div className="flex items-center gap-4">
+           <div className="md:h-[500px] w-[400px] overflow-hidden rounded-md">
+  <img
+    className="w-full h-full object-contain"
+    src={data.thumbnail}
+    alt={data.title || "Course Thumbnail"}
+  />
+</div>
+
+              <div className="flex flex-col w-2/3">
+
+              <h1 className="text-3xl font-bold">{data.title}</h1>
+              <br />
+              <p className="text-gray-600 dark:text-gray-400">{data.description}</p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-red-500">Course not found</p>
+          )}
+        </>
+      )}
+
+      <br />
+     
+      <>
       {/* Video Player Section */}
       {selectedVideo && (
         <div className="w-full h-2/3 bg-black flex flex-col items-center justify-center relative">
@@ -50,7 +89,7 @@ const MyClassroom = () => {
             <span className="font-medium">{data?.instructorDetails?.name}</span>
           </p>
 
-          {/* Scrollable Course Curriculum */}
+         
           {data?.sections?.length > 0 && (
             <div className="mt-6">
               <h3 className="text-xl font-semibold">Course Curriculum</h3>
@@ -97,6 +136,8 @@ const MyClassroom = () => {
           )}
         </div>
       </div>
+            </>
+
     </div>
   );
 };

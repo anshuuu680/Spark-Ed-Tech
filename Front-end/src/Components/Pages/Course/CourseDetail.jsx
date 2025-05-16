@@ -3,13 +3,35 @@ import { useEffect, useState } from "react";
 import { FaStar, FaUsers, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { Video } from "lucide-react";
+import { useSelector } from "react-redux";
+import { selectUserData } from "@/Features/userDetails";
+  import { useNavigate } from "react-router-dom";
+import { set } from "date-fns";
+import { ClipLoader, PacmanLoader } from "react-spinners";
 
 
 
 const CourseDetail = () => {
   const { id } = useParams();
   const [openSection, setOpenSection] = useState(null);
+  const {userData} = useSelector(selectUserData);
   const [data,setData] = useState();
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+
+
+
+const navigate = useNavigate();
+
+const handleClick = () => {
+  if (!userData?._id) {
+    navigate("/login");
+  } else if (!isEnrolled) {
+    onPayment(); // call your payment/enrollment function
+  }
+};
 
   const loadScript = (src)=>{
     return new Promise((resolve)=>{
@@ -80,18 +102,33 @@ const CourseDetail = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const fetch = async ()=>{
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/${id}`, { withCredentials: true });
-      if(response.status==200)
-      setData(response.data.data)
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/${id}`, { withCredentials: true,
+         params: {
+      userId: userData?._id, 
     }
+       });
+      if(response.status==200)
+      setData(response.data.data.course)
+    setIsLoading(false);
+    if(response.data.data.cours!=null)
+      setIsEnrolled(true);
+    }
+ 
     fetch();
-  }, [])
+  }, [userData?._id]);
+  
   
 
   return (
+    
     <div className="max-w-5xl mx-auto py-10 px-4 md:px-6 text-white bg-gray-900">
-      <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+      {isLoading ? (
+        <div className="flex justify-center items-center h-screen">
+          <ClipLoader color="skyBlue" />
+        </div>
+      ) :  <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden">
         <img
           src={data?.thumbnail}
           alt={data?.title}
@@ -115,9 +152,22 @@ const CourseDetail = () => {
           </div>
 
           <p className="mt-3 text-gray-300">{data?.description}</p>
-          <button onClick={onPayment} className="w-full mt-4 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-            Enroll Now
-          </button>
+       <button
+  onClick={handleClick}
+  disabled={userData?._id && isEnrolled}
+  className={`w-full mt-4 px-4 py-2 sm:px-6 sm:py-3 rounded-lg transition
+    ${userData?._id && isEnrolled
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-blue-700 text-white"}`}
+>
+  {userData?._id 
+    ? isEnrolled 
+      ? "Already Enrolled" 
+      : "Enroll Now"
+    : "Login to Enroll"}
+</button>
+
+
 
           {/* Learning Outcomes */}
           <div className="mt-6">
@@ -169,6 +219,10 @@ const CourseDetail = () => {
           </div>
         </div>
       </div>
+}
+
+
+     
     </div>
   );
 };

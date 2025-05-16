@@ -56,8 +56,8 @@ function ISection() {
 
     newSection.videos.forEach(({ file, title }, index) => {
       if (file && title) {
-        formData.append("videos", file); // Append each file
-        formData.append("videoTitles[]", title); // Append each title
+        formData.append("videos", file);
+        formData.append("videoTitles[]", title); 
       } else {
         // console.error(`Missing file or title for video at index ${index}`);
       }
@@ -67,8 +67,9 @@ function ISection() {
 
     try {
       
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/create-section/${id}`, formData, { withCredentials: true }, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/instructor/create-section/${id}`, formData,{
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true
       });
       setSections([...sections, res.data.data.section]);
       setNewSection({ title: "", videos: [] });

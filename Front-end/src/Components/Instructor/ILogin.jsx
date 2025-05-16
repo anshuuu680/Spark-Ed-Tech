@@ -26,8 +26,8 @@ const ILogin = () => {
 
     // Function to fill in demo credentials
     const handleDemoLogin = () => {
-        setEmail("anshupatidar711@gmail.com");
-        setPassword("1122");
+        setEmail("ropip62865@bamsrad.com");
+        setPassword("2");
     };
 
     return (

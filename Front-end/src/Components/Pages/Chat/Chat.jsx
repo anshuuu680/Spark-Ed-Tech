@@ -6,6 +6,8 @@ import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { selectUserData } from "@/Features/userDetails";
 import { useSocket } from "@/SocketContext";
+import { set } from "date-fns";
+import { ClipLoader, PacmanLoader } from "react-spinners";
 
 Modal.setAppElement("#root");
 
@@ -16,6 +18,7 @@ const Chat = () => {
   const [hasContent, setHasContent] = useState(
     location.pathname.split("/")[3] || false
   );
+  const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState([]);
@@ -30,6 +33,7 @@ const Chat = () => {
   }, [location.pathname]);
 
   useEffect(() => {
+    setIsLoading(true);
     if (socket) {
       socket.emit("chat", userData);
       socket.on("all-conversations", (conversations) => {
@@ -38,6 +42,7 @@ const Chat = () => {
           userDetails: data?.to._id === userData?._id ? data?.from : data?.to,
         }));
         setChats(chatData);
+        setIsLoading(false);
       });
 
       socket.on("received message", () => {
@@ -108,7 +113,10 @@ const Chat = () => {
             New Chat
           </button>
         </div>
-        <div className="w-full flex-1 overflow-y-auto">
+
+        {isLoading ? (  <div className="flex justify-center items-center h-screen">
+          <ClipLoader color="skyBlue" />
+        </div> ) :  <div className="w-full flex-1 overflow-y-auto">
           {chats.length === 0 ? (
             <div className="text-gray-600 dark:text-gray-300 text-center flex items-center justify-center h-full">
               No conversations yet.
@@ -151,7 +159,10 @@ const Chat = () => {
               );
             })
           )}
-        </div>
+        </div>}
+
+
+       
       </div>
 
       {/* Chat Window */}

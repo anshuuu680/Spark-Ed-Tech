@@ -7,6 +7,8 @@ function ICreate() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  console.log("id", id);
+
   const [course, setCourse] = useState({
     title: "",
     description: "",
@@ -87,7 +89,6 @@ function ICreate() {
         alert("Failed to create course");
       }
     } catch (error) {
-      console.error("Error creating course:", error);
       alert("An error occurred while creating the course.");
     }
   };

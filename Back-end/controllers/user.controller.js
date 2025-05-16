@@ -11,9 +11,8 @@ import { verifyEmail } from "../emails/VerifyEmail.js";
 
 const options = {
   httpOnly: true,
-  secure: false,
-  sameSite: "none",
-  path: '/',
+  secure: true,
+  sameSite: "None",
 };
 
 
@@ -105,9 +104,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { username, email, password } = req.body;
 
-
-
-
   if (!(username || email)) {
     return res
       .status(400)
@@ -141,13 +137,14 @@ export const loginUser = async (req, res) => {
 
 
 
+
     return res
-      .status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
-      .json(
-        new ApiResponse(
-          200,
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+          new ApiResponse(
+            200,
           {
             user: loggedInUser,
             accessToken,

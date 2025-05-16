@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { SiStudyverse } from "react-icons/si";
-import { useSelector } from "react-redux";
-import { selectUserData, setUserData } from "@/Features/userDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsAuthenticated,setIsAuthenticated, setUserData } from "@/Features/userDetails";
 import axios from "axios";
 
 const HeaderUni = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { userData } = useSelector(selectUserData);
-  const navigate = useNavigate()
+  const isAuthenticated = useSelector(selectIsAuthenticated);;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,13 +20,14 @@ const HeaderUni = () => {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user-data`, {
           withCredentials: true,
         });
+
         if (response.status === 200) {
-          console.log(response.data.data);
-          setIsAuthenticated(true);
+         dispatch(setUserData(response.data.data));
+         dispatch(setIsAuthenticated(true));
         }
       } catch (error) {
         console.error("Error fetching authentication data:", error);
-        setIsAuthenticated(false);
+         dispatch(setIsAuthenticated(false));
       }
     };
 

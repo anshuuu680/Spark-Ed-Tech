@@ -7,12 +7,7 @@ function IHeader() {
       {/* Logo */}
       
       
-      {/* Right-side elements */}
-      <div className="flex items-center gap-4">
-       
-        <FaUserCircle className="text-2xl cursor-pointer hover:text-gray-400" />
-      
-      </div>
+    
     </header>
   );
 }

@@ -6,6 +6,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { Section } from "../models/Course/SectionSchema.js";
 import { verifyEmail } from "../emails/VerifyEmail.js";
+import { access } from "fs";
 
 const options = {
   httpOnly: true,
@@ -15,6 +16,7 @@ const options = {
 
 export const createCourse = asyncHandler(async (req, res) => {
   const { title, description, price, prerequisites, learnings } = req.body;
+
 
   let thumbnailUrl = "";
   if (req.file?.path) {
@@ -147,6 +149,9 @@ export const addSection = asyncHandler(async (req, res) => {
 export const addLecture = asyncHandler(async(req,res)=>{
   const {title,sectionId} = req.body;
 
+  console.log(req.body)
+
+
 
   let localPath = req.files[0].path;
   const uploadedVideo = await uploadOnCloudinary(localPath);
@@ -195,7 +200,6 @@ export const deleteSection = asyncHandler(async (req, res) => {
 
   const {sectionId} =  req.body;
 
-  console.log("section delete",sectionId)
 
   const section = await Section.findByIdAndDelete(sectionId);
 
@@ -203,7 +207,6 @@ export const deleteSection = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, "", "section Deleted"));
 });
-
 
 
 const generateAccessAndRefreshToken = async (instructorId) => {
@@ -235,7 +238,6 @@ export const registerInstructor = async (req, res) => {
     password,
   } = req.body;
 
-  console.log(req.body)
 
   if (
     [
@@ -314,6 +316,8 @@ export const registerInstructor = async (req, res) => {
   );
 
   if (!createdInstructor) throw new ApiError(500, "Something went wrong");
+
+  console.log("inside register",accessToken, refreshToken);
 
   return res
     .status(200)
