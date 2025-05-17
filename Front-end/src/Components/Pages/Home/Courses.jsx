@@ -7,7 +7,7 @@ const courses = [
     description: "Master MERN stack with hands-on projects and real-world applications.",
     price: "₹49.99",
     rating: 4.8,
-    image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y291cnNlfGVufDB8fDB8fHww",
+    image: "https://images.unsplash.com/photo-1587691592099-24045742c181?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y291cnNlJTIwc29mdHdhcmV8ZW58MHx8MHx8fDA%3D",
   },
   {
     id: 2,
