@@ -7,7 +7,7 @@ const courses = [
     description: "Master MERN stack with hands-on projects and real-world applications.",
     price: "₹49.99",
     rating: 4.8,
-    image: "https://plus.unsplash.com/premium_photo-1681248156500-8f209e8e466e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y291cnNlfGVufDB8fDB8fHww",
+    image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y291cnNlfGVufDB8fDB8fHww",
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const courses = [
     description: "Learn Figma, Adobe XD, and design fundamentals to build stunning UI/UX.",
     price: "₹39.99",
     rating: 4.6,
-    image: "https://plus.unsplash.com/premium_photo-1681248156500-8f209e8e466e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y291cnNlfGVufDB8fDB8fHww",
+    image: "https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlJTIwc29mdHdhcmV8ZW58MHx8MHx8fDA%3D",
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ const courses = [
     description: "Improve your problem-solving skills with DSA concepts and coding practice.",
     price: "₹59.99",
     rating: 4.9,
-    image: "https://plus.unsplash.com/premium_photo-1681248156500-8f209e8e466e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y291cnNlfGVufDB8fDB8fHww",
+    image: "https://images.unsplash.com/photo-1598978028953-799807c097b5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y291cnNlJTIwc29mdHdhcmV8ZW58MHx8MHx8fDA%3D",
   },
 ];
 
