@@ -15,7 +15,7 @@ const courses = [
     description: "Learn Figma, Adobe XD, and design fundamentals to build stunning UI/UX.",
     price: "₹39.99",
     rating: 4.6,
-    image: "https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291cnNlJTIwc29mdHdhcmV8ZW58MHx8MHx8fDA%3D",
+    image: "https://images.unsplash.com/photo-1580894894513-541e068a3e2b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvdXJzZSUyMHNvZnR3YXJlfGVufDB8fDB8fHww",
   },
   {
     id: 3,
