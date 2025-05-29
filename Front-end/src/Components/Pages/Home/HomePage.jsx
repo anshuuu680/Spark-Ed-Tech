@@ -1,5 +1,5 @@
+import { Courses } from "@/index";
 import Testimonial from "./Testimonial";
-import Courses from "./Courses";
 
 
 const HomePage = () => {
@@ -35,6 +35,8 @@ const HomePage = () => {
           <p className="mt-2 text-gray-600 dark:text-gray-300">Join discussions and connect with peers.</p>
         </div>
       </section>
+        <h2 className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-10">Featured Courses</h2>
+
       <Courses />
       <Testimonial />
     </div>

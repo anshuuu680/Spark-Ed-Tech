@@ -15,7 +15,6 @@ function HomeLayout() {
      
       <footer className="bg-dark-background text-gray-300 py-10">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
-          {/* About Section */}
           <div>
             <h3 className="text-xl font-semibold text-white mb-3">Spark</h3>
             <p className="text-sm text-gray-400">
@@ -23,7 +22,6 @@ function HomeLayout() {
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
             <ul className="text-sm space-y-2">
@@ -34,7 +32,6 @@ function HomeLayout() {
             </ul>
           </div>
 
-          {/* Social Media */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
             <div className="flex gap-4 text-xl">
@@ -46,7 +43,6 @@ function HomeLayout() {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="text-center mt-6 text-gray-500 text-sm">
           &copy; {new Date().getFullYear()} Spark. All rights reserved.
         </div>
