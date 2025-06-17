@@ -11,6 +11,7 @@ import ThemeToggle from "./ThemeToggle";
 import { MdSchool } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData, selectUserData } from "../../Features/userDetails";
+import { motion } from "framer-motion";
 
 const navLinks = [
   { to: "/dashboard", icon: LuLayoutDashboard },
@@ -83,8 +84,23 @@ const Header = () => {
 
   return (
     <>
-      {/* Main Header */}
-      <header className="w-full flex items-center justify-between px-5 bg-white dark:bg-dark-card  py-3 shadow-md border-b border-gray-200 dark:border-gray-700">
+  
+      <header className="w-full md:px-6 flex items-center justify-between px-5 bg-white dark:bg-dark-card  py-3 shadow-md border-b border-gray-200 dark:border-gray-700">
+      <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="logo-container"
+          >
+            <div className="flex items-center gap-2 group">
+              <SiStudyverse className="text-3xl text-primary transition-transform duration-300 group-hover:scale-110" />
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-white">Unlocking</span>
+                <span className="text-sm font-bold bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+                  Potential
+                </span>
+              </div>
+            </div>
+          </motion.div>
         <div className="flex items-center gap-4 lg:gap-8 lg:px-8">
           <Menu className="text-2xl cursor-pointer dark:text-white lg:hidden" onClick={toggleMenu} />
           <Link to="/" className="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white">
@@ -116,7 +132,7 @@ const Header = () => {
         </nav>
       </aside>
 
-      {/* Overlay */}
+      
       {isOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleMenu}></div>}
     </>
   );

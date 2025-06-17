@@ -6,8 +6,7 @@ import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { selectUserData } from "@/Features/userDetails";
 import { useSocket } from "@/SocketContext";
-import { set } from "date-fns";
-import { ClipLoader, PacmanLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 
 Modal.setAppElement("#root");
 

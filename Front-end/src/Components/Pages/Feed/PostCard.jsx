@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from "date-fns";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUserData } from "@/Features/userDetails";
+import { motion } from "framer-motion";
 
 const PostCard = ({ obj }) => {
   const { postedBy, imageUrl, description, title, _id, createdAt, type, likes } = obj;
@@ -21,65 +22,106 @@ const PostCard = ({ obj }) => {
   };
 
   const handleLike = async () => {
-    setIsLiked((prevIsLiked) => !prevIsLiked);
-    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/like`, { _id, type, userId }, { withCredentials: true });
+    setIsLiked((prev) => !prev);
+    await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/feed/like`,
+      { _id, type, userId },
+      { withCredentials: true }
+    );
   };
 
   return (
-    <div className="max-w-2xl p-4 sm:p-6 rounded-2xl shadow-lg bg-gray-100 dark:bg-gray-800 transition-all">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-2xl w-full p-4 rounded-xl border border-white/10 backdrop-blur-md shadow-lg transition-all"
+    >
       <Navbar user={postedBy} time={timeDifference} data={obj} />
 
       <div onClick={handleClick} className="cursor-pointer">
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
-          {title}
-        </h1>
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1">{description}</p>
-        <div className="w-full aspect-[4/3] flex items-center justify-center mt-3 rounded-2xl overflow-hidden border border-gray-300 dark:border-gray-600">
-          <img className="w-full h-full object-cover rounded-2xl" src={imageUrl} alt={title} />
-        </div>
+        <h1 className="text-lg font-semibold text-white mt-2">{title}</h1>
+        <p className="text-sm text-gray-300 mt-1">{description}</p>
+
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          className="mt-3 rounded-lg border border-white/10 overflow-hidden bg-gradient-to-br from-black/10 to-black/30"
+        >
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full  h-auto min-h-[250px] max-h-[500px] object-cover rounded-lg transition-transform duration-300"
+            onError={(e) => {
+              e.target.style.objectFit = 'contain';
+              e.target.style.backgroundColor = '#1a1a1a';
+            }}
+          />
+        </motion.div>
       </div>
 
-      <div className="flex h-fit items-center justify-start gap-6 mt-4">
-        {/* Like Button */}
-        <div
+      <div className="flex items-center justify-start gap-4 mt-3 text-white text-sm">
+        <motion.div
+          whileTap={{ scale: 0.9 }}
           onClick={handleLike}
-          className="flex items-center gap-1 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-blue-500 transition-all"
+          className="flex items-center gap-1 cursor-pointer hover:text-pink-400 transition"
         >
           <svg
-            className="w-6 h-6"
-            viewBox="0 0 22 22"
-            fill={isLiked ? 'green' : 'none'}
+            xmlns="http://www.w3.org/2000/svg"
+            fill={isLiked ? "red" : "none"}
+            viewBox="0 0 24 24"
             stroke="currentColor"
-            strokeWidth="1"
+            strokeWidth="1.5"
+            className="w-5 h-5"
           >
-            <polygon points="3 14 12 3 21 14 16 14 16 22 8 22 8 14 3 14"></polygon>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16.5 3a5.75 5.75 0 0 1 4.25 9.68l-7.5 8.07a.75.75 0 0 1-1.08 0l-7.5-8.07A5.75 5.75 0 1 1 16.5 3z"
+            />
           </svg>
-        </div>
+          <span>{likes?.length || 0}</span>
+        </motion.div>
 
-      
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsCommentOpen(true)}
+          className="hover:text-blue-400 cursor-pointer"
+        >
+          💬 Comment
+        </motion.div>
       </div>
 
-      {/* Comment Modal */}
       {isCommentOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="dark:text-white bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-lg font-semibold text-center">Add a Comment</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white/10 border border-white/20 backdrop-blur-md text-white p-5 rounded-xl w-full max-w-sm"
+          >
+            <h2 className="text-base font-medium text-center">Add a Comment</h2>
             <textarea
-              className="w-full mt-3 p-3 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 focus:ring-blue-600 focus:border-blue-600"
+              className="w-full mt-3 p-2 rounded border border-white/20 bg-white/5 text-white placeholder-gray-400 focus:ring-blue-500"
               placeholder="Write your comment..."
+              rows="3"
             />
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-end mt-3 gap-2 text-sm">
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                 onClick={() => setIsCommentOpen(false)}
+                className="px-3 py-1 bg-white/10 border border-white/20 rounded hover:bg-white/20"
               >
-                Add Comment
+                Cancel
+              </button>
+              <button
+                onClick={() => setIsCommentOpen(false)}
+                className="px-3 py-1 bg-blue-600 rounded hover:bg-blue-500"
+              >
+                Add
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

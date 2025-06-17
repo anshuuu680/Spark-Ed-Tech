@@ -31,12 +31,12 @@ const Feed = () => {
 
   return (
     <section className='w-full h-full p-2 flex flex-col gap-2'>
-      <div className="sm:hidden w-full flex justify-between mb-4">
+      <div className="sm:hidden  w-full flex justify-between mb-4">
         <h1 className='text-2xl font-semibold px-4 text-gray-900 dark:text-gray-100'>My Feed</h1>
         <CreatePost />
       </div>
 
-      {/* Create Post Button for Mobile */}
+     
 
       <div className="flex w-full gap-8">
 
@@ -44,9 +44,9 @@ const Feed = () => {
           <div className="flex w-2/3 justify-center items-center h-full">
             <ClipLoader color='skyBlue'/>
             </div>
-        ) :   <div className="sm:w-2/3 w-full min-h-[120vh] sm:p-4 p-2 flex flex-col ">
+        ) :   <div className="sm:w-2/3 w-full min-h-screen sm:p-4 p-2 flex flex-col ">
           {posts?.length > 0 ? (
-            <div className='h-[80vh] w-full flex flex-col gap-4 pb-4 overflow-y-auto no-scrollbar'>
+            <div className='max-h-[90vh] md:pb-12 w-full flex flex-col gap-4 pb-4 overflow-y-auto no-scrollbar'>
               {posts.map((post) =>
                 post.type === "post" ? (
                   <PostCard key={post._id} obj={post} />
@@ -65,7 +65,7 @@ const Feed = () => {
       
       
 
-        {/* User Info and Create Post Section */}
+       
         <div className="hidden sm:grid w-[40vh] mt-5">
           <div className="w-full min-h-[10vh] bg-gray-100 dark:bg-dark-card p-4 rounded-md shadow-md">
             <div className="w-full h-fit flex flex-col justify-center items-center gap-4">

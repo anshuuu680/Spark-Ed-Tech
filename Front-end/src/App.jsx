@@ -10,19 +10,19 @@ import {
   DynamicChat, AdminLayout, CourseDetails, PasswordChanged, VerifyOtp, MyProfile,
   Courses, CourseDetail
 } from './index.js';
-import HomeLayout from './Components/layout/HomeLayout';
-import ILyout from './Components/Instructor/ILyout';
-import IDashboard from './Components/Instructor/IDashboard';
-import ICourses from './Components/Instructor/ICourses';
-import ICreate from './Components/Instructor/ICreate';
-import IPayment from './Components/Instructor/IPayment';
-import ISection from './Components/Instructor/ISection';
-import ISignUp from './Components/Instructor/ISignUp';
-import IVerify from './Components/Instructor/IVerify';
-import ILogin from './Components/Instructor/ILogin';
-import ICDetails from './Components/Instructor/ICDetails';
-import MyClassroom from './Components/Pages/Course/MyClassroom';
-import MyCourses from './Components/Pages/Course/MyCourses';
+import HomeLayout from './components/layout/HomeLayout';
+import ILyout from './components/Instructor/ILyout';
+import IDashboard from './components/Instructor/IDashboard';
+import ICourses from './components/Instructor/ICourses';
+import ICreate from './components/Instructor/ICreate';
+import IPayment from './components/Instructor/IPayment';
+import ISection from './components/Instructor/ISection';
+import ISignUp from './components/Instructor/ISignUp';
+import IVerify from './components/Instructor/IVerify';
+import ILogin from './components/Instructor/ILogin';
+import ICDetails from './components/Instructor/ICDetails';
+import MyClassroom from './components/Pages/Course/MyClassroom';
+import MyCourses from './components/Pages/Course/MyCourses';
 
 
 

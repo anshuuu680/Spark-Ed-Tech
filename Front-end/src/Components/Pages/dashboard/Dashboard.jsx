@@ -1,4 +1,4 @@
-import { Calendar } from "@/Components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { useEffect, useState } from "react";
 import Chart from "./Chart";
 import ChartPie from "./ChartPie";
@@ -7,7 +7,7 @@ import { selectUserData } from "@/Features/userDetails";
 import axios from "axios";
 import CircularProgressBar from "./ProgressBar";
 import { toast } from "react-toastify";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import { GraduationCap } from "lucide-react";
 import { useNavigate } from "react-router-dom";

@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import axios from 'axios';
 import Comment from './Comment';
-import { Button } from "@/Components/ui/button.jsx";
+import { Button } from "@/components/ui/button.jsx";
+import { motion } from 'framer-motion';
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@/Features/userDetails';
 
@@ -34,14 +35,13 @@ const FeedPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/feed/post-data?id=${_id}&type=${type}`, { withCredentials: true }, {
-                    
-                });
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/feed/post-data?id=${_id}&type=${type}`, { withCredentials: true });
                 if (response.status === 200) {
-                    setPostData(response.data.data.result);
-                    setIsLiked(response.data.data.existingLike || false);
-                    setComments(response.data.data.commentsWithLikes);
-                    setAllLikes(response.data.data.totalLikes.length);
+                    const { result, existingLike, commentsWithLikes, totalLikes } = response.data.data;
+                    setPostData(result);
+                    setIsLiked(existingLike || false);
+                    setComments(commentsWithLikes);
+                    setAllLikes(totalLikes.length);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -61,7 +61,7 @@ const FeedPage = () => {
 
     const handleLike = async () => {
         try {
-            setIsLiked(prevIsLiked => !prevIsLiked);
+            setIsLiked(prev => !prev);
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/like`, { _id, type, userId }, { withCredentials: true });
             setAllLikes(response.data.data);
         } catch (error) {
@@ -69,15 +69,13 @@ const FeedPage = () => {
         }
     };
 
-    const openHandler = () => {
-        setIsOpen(!isOpen);
-    }
+    const openHandler = () => setIsOpen(!isOpen);
 
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/add-comment`, { value, type, _id },{withCredentials:true});
-            setIsOpen(false)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/feed/add-comment`, { value, type, _id }, { withCredentials: true });
+            setIsOpen(false);
             setValue('');
             setComments(response.data.data);
         } catch (error) {
@@ -85,89 +83,95 @@ const FeedPage = () => {
         }
     };
 
-
     return (
-        <div className="w-full h-fit max-h-[100vw] flex  pt-4 px-4 gap-2">
-            <div className="dynamic w-full h-fit flex flex-col lg:flex-row  gap-4">
-                <div className="p-4 sm:h-fit h-full w-full sm:w-1/2  scrollable rounded-xl overflow-hidden shadow-lg border dark:border-dark-border border-gray-300 transition-all ">
-                    <Navbar user={postData?.postedBy} time={time} data={postData} />
-                    {postData?.title && (
-                        <div className="text-base mb-1">
-                            <h1 className='dark:text-gray-100 font-bold'>{postData.title}</h1>
-                        </div>
-                    )}
-                    {postData?.question && (
-                        <div className="text-base pt-2">
-                            <h1 className='dark:text-gray-100 font-bold'>{postData.question}</h1>
-                        </div>
-                    )}
-                    {postData?.description && (
-                        <div className="para text-gray-400">
-                            <p className="text-sm dark:text-gray-200">{postData.description}</p>
-                        </div>
-                    )}
-                    {postData?.imageUrl && (
-                        <div className="img-div w-full  border border-gray-300 dark:border-dark-border flex justify-center items-center m-auto mt-3 rounded-2xl overflow-hidden p-2 sm:h-screen">
-                            <img style={{ objectFit: 'contain', height: '100%', width: '100%' }} src={postData.imageUrl} alt={postData.title} />
-                        </div>
-                    )}
-                    <div className="footer px-3 w-full p-2 h-12 flex items-end gap-4">
-                        <div className="likes h-fit flex items-center gap-2 cursor-pointer dark:text-gray-100">
-                            <svg
-                                onClick={handleLike}
-                                width="22"
-                                height="22"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill={isLiked ? 'green' : 'none'}
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <polygon points="3 14 12 3 21 14 16 14 16 22 8 22 8 14 3 14"></polygon>
-                            </svg>
-                            <p className="text-sm">{allLikes || 0}</p>
-                        </div>
+        <div className="w-full px-4 py-6 flex justify-center items-start">
+            <div className="w-full max-w-7xl flex flex-col lg:flex-row gap-6">
+                <div className="w-full lg:w-1/2 bg-white dark:bg-[#111] border border-gray-200 dark:border-dark-border rounded-2xl shadow-lg overflow-hidden">
+                    <div className="p-6">
+                        <Navbar user={postData?.postedBy} time={time} data={postData} />
+                        {postData?.title && (
+                            <h1 className="text-lg font-semibold dark:text-gray-100 mt-3">{postData.title}</h1>
+                        )}
+                        {postData?.question && (
+                            <h2 className="text-md font-medium dark:text-gray-300 mt-2">{postData.question}</h2>
+                        )}
+                        {postData?.description && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{postData.description}</p>
+                        )}
+                        {postData?.imageUrl && (
+                            <div className="w-full h-[300px] sm:h-[450px] mt-4 overflow-hidden rounded-xl border border-gray-200 dark:border-dark-border">
+                                <img
+                                    src={postData.imageUrl}
+                                    alt={postData.title}
+                                    className="w-full h-full object-contain"
+                                />
+                            </div>
+                        )}
+                         <div className="flex items-center justify-start gap-4 mt-3 text-white text-sm">
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          onClick={handleLike}
+          className="flex items-center gap-1 cursor-pointer hover:text-pink-400 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill={isLiked ? "red" : "none"}
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16.5 3a5.75 5.75 0 0 1 4.25 9.68l-7.5 8.07a.75.75 0 0 1-1.08 0l-7.5-8.07A5.75 5.75 0 1 1 16.5 3z"
+            />
+          </svg>
+          <span>{allLikes || 0}</span>
+        </motion.div>
+
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          className="hover:text-blue-400 cursor-pointer"
+        >
+          💬 Comment
+        </motion.div>
+      </div>
                     </div>
                 </div>
-                <div className="p-4 w-full sm:w-1/2 max-h-[90vh] overflow-y-auto no-scrollbar rounded-xl">
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-start sm:items-center">
-                        {/* Comment Count */}
-                        <h1 className="font-bold text-base sm:text-lg md:text-xl h-auto text-gray-900 dark:text-gray-200">
-                            {comments.length || 0} Comments
-                        </h1>
 
-                        {/* Dialog for Adding Comments */}
+                <div className="w-full lg:w-1/2 h-fit max-h-[90vh] overflow-y-auto no-scrollbar bg-white dark:bg-[#111] border border-gray-200 dark:border-dark-border rounded-2xl shadow-lg p-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <h2 className="text-lg font-semibold dark:text-gray-100">
+                            {comments.length || 0} Comments
+                        </h2>
                         <Dialog open={isOpen} onOpenChange={openHandler}>
                             <DialogTrigger asChild>
-                                <Button className="hover:bg-blue-600 border-0 px-4 py-2 text-sm sm:text-base">Add Comment</Button>
+                                <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm px-4 py-2">
+                                    Add Comment
+                                </Button>
                             </DialogTrigger>
-
-                            <DialogContent className="sm:max-w-[425px] w-full bg-dark-background border-0 text-gray-100 rounded-lg shadow-lg p-4 sm:p-6 transition duration-500">
+                            <DialogContent className="sm:max-w-[425px] w-full bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 border-none rounded-xl">
                                 <DialogHeader>
-                                    <DialogTitle className="text-center text-lg sm:text-xl">Add a Comment</DialogTitle>
+                                    <DialogTitle className="text-lg font-medium">Add a Comment</DialogTitle>
                                 </DialogHeader>
-
-                                <form onSubmit={submitHandler} className="flex flex-col gap-4">
-                                    <div className="flex flex-col">
-                                        <label htmlFor="comment" className="block text-sm font-medium mb-2">
-                                            Comment
-                                        </label>
-                                        <textarea
-                                            id="comment"
-                                            placeholder="Add a comment"
-                                            className="w-full p-3 rounded-lg border outline-none bg-dark-background border-dark-border focus:ring-blue-600 focus:border-blue-600 resize-none"
-                                            onChange={(e) => setValue(e.target.value)}
-                                            value={value}
-                                        />
-                                    </div>
-                                    <Button type="submit" className="self-end sm:self-start px-4 py-2 text-sm sm:text-base">Add</Button>
+                                <form onSubmit={submitHandler} className="mt-4 flex flex-col gap-4">
+                                    <textarea
+                                        id="comment"
+                                        placeholder="Share your thoughts..."
+                                        className="w-full h-24 p-3 rounded-lg border dark:border-dark-border bg-gray-50 dark:bg-[#111] focus:ring-blue-500 focus:border-blue-500 resize-none"
+                                        onChange={(e) => setValue(e.target.value)}
+                                        value={value}
+                                    />
+                                    <Button type="submit" className="self-end bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm rounded-md">
+                                        Comment
+                                    </Button>
                                 </form>
                             </DialogContent>
                         </Dialog>
                     </div>
 
-                    <div className="w-full h-fit mt-4 flex flex-col gap-4">
+                    <div className="mt-6 flex flex-col gap-5">
                         {comments.map((comment, index) => (
                             <Comment key={index} comment={comment} userId={userData?._id} />
                         ))}

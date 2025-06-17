@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import Loader from "@/Components/Loader";
+import Loader from "@/components/Loader";
 import { selectUserData } from "@/Features/userDetails";
 import QuestionCard from "../Feed/QuestionCard";
 

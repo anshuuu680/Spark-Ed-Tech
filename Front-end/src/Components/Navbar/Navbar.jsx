@@ -9,14 +9,15 @@ import { useDispatch } from "react-redux";
 import { MdSchool } from "react-icons/md";
 import { setUserData } from '../../Features/userDetails';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const navLinks = [
-  { to: '/dashboard', icon: LuLayoutDashboard },
-  { to: '/feed', icon: TbBrandFeedly },
-  { to: "/my-courses", icon: MdSchool },
-  { to: '/tasks', icon: RiTaskLine },
-  { to: '/chat', icon: FiMessageSquare },
-  { to: '/logout', icon: LogOut },
+  { to: '/dashboard', icon: LuLayoutDashboard, label: 'Dashboard' },
+  { to: '/feed', icon: TbBrandFeedly, label: 'Feed' },
+  { to: "/my-courses", icon: MdSchool, label: 'Courses' },
+  { to: '/tasks', icon: RiTaskLine, label: 'Tasks' },
+  { to: '/chat', icon: FiMessageSquare, label: 'Chat' },
+  { to: '/logout', icon: LogOut, label: 'Logout' },
 ];
 
 const Navbar = () => {
@@ -36,37 +37,38 @@ const Navbar = () => {
 
   const renderNavLinks = () => {
     return (
-      <ul className="flex flex-col gap-5">
+      <ul className="flex flex-col gap-2 w-full">
         {navLinks.map((link, index) => {
           const isActive = location.pathname.split('/')[2] === link.to.split('/')[1];
-          const commonClassName =
-            'transition-all duration-300 p-1.5 rounded-md text-gray-700 dark:text-white';
-
-          const activeClassName =
-            'bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-white';
-          const hoverClassName = 'hover:bg-gray-200 dark:hover:bg-gray-800';
-
-          if (index === 5) {
-            return (
-              <li key={index} onClick={handleLogout} className="flex items-center">
-                <NavLink
-                  className={`${commonClassName}  ${isActive ? activeClassName : hoverClassName}`}
-                >
-                  <link.icon className="text-2xl" />
-                </NavLink>
-              </li>
-            );
-          }
+          const isLogout = index === 5;
 
           return (
-            <li key={index} className="flex items-center">
-              <NavLink
-                to={`/users${link.to}`}
-                className={`${commonClassName} font-semibold ${isActive ? activeClassName : hoverClassName}`}
-              >
-                <link.icon className="text-2xl" />
-              </NavLink>
-            </li>
+            <motion.li
+              key={index}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`flex items-center w-full rounded-lg transition-all duration-200 ${
+                isActive ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              {isLogout ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-3 w-full px-4 py-3 text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary"
+                >
+                  <link.icon className="text-xl" />
+                  <span className="text-sm font-medium">{link.label}</span>
+                </button>
+              ) : (
+                <NavLink
+                  to={`/users${link.to}`}
+                  className="flex items-center gap-3 w-full px-4 py-3 text-gray-700 dark:text-gray-200"
+                >
+                  <link.icon className="text-xl" />
+                  <span className="text-sm font-medium">{link.label}</span>
+                </NavLink>
+              )}
+            </motion.li>
           );
         })}
       </ul>
@@ -74,11 +76,25 @@ const Navbar = () => {
   };
 
   return (
-    <section className="hidden md:inline dark:bg-dark-card bg-white dark:border-gray-700 px-4 py-4 h-full">
-      <nav className="flex justify-center items-center">
+    <section className="hidden md:flex flex-col h-full md:py-6 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+      
+
+      
+      <nav className="flex-1 px-4 py-2">
         {renderNavLinks()}
-        <hr className="my-2 border-gray-300 dark:border-gray-500" />
       </nav>
+
+      <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+        <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+            <span className="text-sm font-medium text-primary">SE</span>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">Spark Ed</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">v1.0.0</p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

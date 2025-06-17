@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import PostCard from "./PostCard"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Loader from "@/Components/Loader.jsx";
+import Loader from "@/components/Loader.jsx";
 
 const UserPosts = () => {
   const location = useLocation();

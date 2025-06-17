@@ -8,17 +8,18 @@ function MyCourses() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch user's courses
   const fetchCourses = async () => {
     setIsLoading(true);
-
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/course/my-courses`, { withCredentials: true });
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/course/my-courses`,
+        { withCredentials: true }
+      );
       setData(response.data.data);
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
       console.error("Error fetching courses:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -27,50 +28,56 @@ function MyCourses() {
   }, []);
 
   return (
-    <section className="w-full h-[90vh] overflow-y-auto p-4 flex flex-col gap-4">
-      <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+    <section className="w-full min-h-screen px-4 py-8 ">
+      <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
         My Learnings
       </h1>
 
       {isLoading ? (
-        <div className="flex justify-center items-center h-full">
-          <ClipLoader color="skyBlue" />
+        <div className="flex justify-center items-center h-[50vh]">
+          <ClipLoader color="skyblue" size={50} />
         </div>
-      ):
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data?.map((data, index) => (
-          <div
-            key={index}
-            className="w-full border border-gray-400 dark:border-gray-600 p-4 rounded-lg bg-light-card dark:bg-dark-card hover:bg-gray-200 dark:hover:bg-black transition-all duration-300 flex flex-col gap-4 shadow-md"
-          >
-            {/* Course Thumbnail */}
-            <img
-              src={data?.course?.thumbnail}
-              alt={data?.course?.title}
-              className="w-full h-40 object-cover rounded-md"
-            />
-
-            {/* Course Details */}
-            <div>
-              <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200">
-                {data?.course?.title}
-              </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-              <span className="font-semibold">{data?.course?.instructor?.name}</span>
-              </p>
-            </div>
-
-            {/* Continue Button */}
-            <button
-              onClick={() => navigate(`/users/my-courses/${data?.course?._id}`)}
-              className="mt-auto px-4 py-2 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-600 transition-all"
+      ) : data.length === 0 ? (
+        <div className="text-center text-gray-600 dark:text-gray-300 text-lg">
+          You haven’t enrolled in any courses yet.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {data.map((item, index) => (
+            <div
+              key={index}
+              className="p-4 border border-gray-700 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
             >
-              Continue
-            </button>
-          </div>
-        ))}
-      </div>
-}
+              <img
+                src={item?.course?.thumbnail}
+                alt={item?.course?.title}
+                className="w-full h-44 object-cover"
+              />
+
+              <div className="p-2 flex flex-col flex-grow gap-1">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white line-clamp-2">
+                  {item?.course?.title}
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Instructor:{" "}
+                  <span className="font-medium">
+                    {item?.course?.instructor?.name}
+                  </span>
+                </p>
+
+                <button
+                  onClick={() =>
+                    navigate(`/users/my-courses/${item?.course?._id}`)
+                  }
+                  className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

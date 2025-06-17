@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import PostCard from "../Feed/PostCard";
-import Loader from "@/Components/Loader";
+import Loader from "@/components/Loader";
 import { selectUserData } from "@/Features/userDetails";
 
 const MyPosts = () => {

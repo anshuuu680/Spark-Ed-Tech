@@ -4,141 +4,156 @@ import { Button } from "../ui/button";
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../../Features/userDetails';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState('');
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [otp, setOtp] = useState('');
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-    const [otpSent, setOtpSent] = useState(false);
-    const [otpVerified, setOtpVerified] = useState(false);
-    const [buttonColor, setButtonColor] = useState('bg-blue-500');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [otp, setOtp] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [buttonColor, setButtonColor] = useState('bg-blue-600');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleSubmitEmail = async () => {
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/send-otp`, { email }, { withCredentials: true });
-            if (response.status === 200) {
-                setOtpSent(true);
-                setButtonColor('bg-green-500');
-            }
-        } catch (error) {
-            console.error('Failed to send OTP', error);
-        }
-    };
+  const handleSubmitEmail = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/send-otp`,
+        { email },
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        setOtpSent(true);
+        setButtonColor('bg-green-600');
+      }
+    } catch (error) {
+      console.error('Failed to send OTP', error);
+    }
+  };
 
-    const handleVerifyOtp = async () => {
-        try {
-            const response = await axios.post('https://spark-ed-tech.onrender.com/api/verify-otp', { email, otp });
-            if (response.status === 200) {
-                setOtpVerified(true);
-            }
-        } catch (error) {
-            console.error('Failed to verify OTP', error);
-            setError("Invalid OTP. Please try again.");
-        }
-    };
+  const handleVerifyOtp = async () => {
+    try {
+      const response = await axios.post(
+        "https://spark-ed-tech.onrender.com/api/verify-otp",
+        { email, otp }
+      );
+      if (response.status === 200) {
+        setOtpVerified(true);
+      }
+    } catch (error) {
+      console.error('Failed to verify OTP', error);
+      setError("Invalid OTP. Please try again.");
+    }
+  };
 
-    const handleResetPassword = async (e) => {
-        e.preventDefault();
-        if (newPassword !== confirmPassword) {
-            setError("Passwords do not match");
-            return;
-        }
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
-        try {
-            const response = await axios.post("https://spark-ed-tech.onrender.com/api/reset-password", { email, password: newPassword });
-            setSuccess("Password reset successfully!");
-            setError("");
-            navigate("/password-changed");
-        } catch (err) {
-            setError(err.response?.data?.message || "An error occurred while resetting the password");
-            setSuccess("");
-        }
-    };
+    try {
+      const response = await axios.post(
+        "https://spark-ed-tech.onrender.com/api/reset-password",
+        { email, password: newPassword }
+      );
+      setSuccess("Password reset successfully!");
+      setError("");
+      navigate("/password-changed");
+    } catch (err) {
+      setError(err.response?.data?.message || "An error occurred while resetting the password");
+      setSuccess("");
+    }
+  };
 
-    return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
-            <div className="min-h-[40vh] bg-white dark:bg-dark-card mt-4 py-2 px-6 rounded-lg shadow-lg max-w-md min-w-[40vh] border border-gray-300 dark:border-gray-600 flex flex-col justify-around items-center">
-                {!otpSent ? (
-                    <>
-                        <h1 className="dark:text-gray-100 font-semibold text-xl mb-6 text-center">Reset Password</h1>
-                        <p className="dark:text-gray-400">Enter your user account's verified email address and we will send you an OTP.</p>
-                        <input
-                            placeholder="Enter your email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-gray-50 dark:bg-dark-background text-gray-900 dark:text-gray-200"
-                        />
-                        <div className='flex justify-end w-full'>
-                            <Button
-                                className={`w-fit ${buttonColor}`}
-                                onClick={handleSubmitEmail}
-                            >
-                                Submit
-                            </Button>
-                        </div>
-                    </>
-                ) : otpVerified ? (
-                    <form onSubmit={handleResetPassword} className="min-w-[50vh]">
-                        <h1 className="dark:text-gray-100 font-semibold text-xl mb-6 text-center">Reset Password</h1>
-                        <p className="text-[#858383] text-sm text-center mb-6 rounded-lg">Please enter your new password below.</p>
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="newPassword" className="dark:text-gray-200 text-sm font-medium">New Password</label>
-                                <input
-                                    type="password"
-                                    id="newPassword"
-                                    value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
-                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-gray-50 dark:bg-dark-background text-gray-900 dark:text-gray-200"
-                                    required
-                                />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="confirmPassword" className="dark:text-gray-200 text-sm font-medium">Confirm Password</label>
-                                <input
-                                    type="password"
-                                    id="confirmPassword"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-gray-50 dark:bg-dark-background text-gray-900 dark:text-gray-200"
-                                    required
-                                />
-                            </div>
-                            {error && <p className="text-red-500 text-sm">{error}</p>}
-                            {success && <p className="text-green-500 text-sm">{success}</p>}
-                            <Button type="submit" className="w-full bg-blue-500 text-white">Reset Password</Button>
-                        </div>
-                    </form>
-                ) : (
-                    <div className='flex flex-col items-center gap-4'>
-                        <p className="dark:text-gray-400 text-sm">OTP has been sent to your account, please check your email.</p>
-                        <h1 className="text-lg text-center font-semibold dark:text-gray-100">Enter OTP</h1>
-                        <div className="flex justify-center gap-2">
-                            <input
-                                type="text"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 bg-gray-50 dark:bg-dark-background text-gray-900 dark:text-gray-200"
-                                required
-                            />
-                        </div>
-                        <Button
-                            className="mt-4 bg-blue-500 text-white"
-                            onClick={handleVerifyOtp}
-                        >
-                            Verify OTP
-                        </Button>
-                        {error && <p className="text-red-500 text-sm">{error}</p>}
-                    </div>
-                )}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-full max-w-md bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-2xl p-6 shadow-xl"
+      >
+        {!otpSent ? (
+          <div className="flex flex-col gap-4">
+            <h1 className="text-xl font-semibold text-center">Reset Password</h1>
+            <p className="text-sm text-gray-300 text-center">
+              Enter your verified email and we'll send you an OTP.
+            </p>
+            <input
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="px-4 py-2 rounded-lg bg-white/10 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+            />
+            <motion.div whileTap={{ scale: 0.98 }} className="flex justify-end">
+              <Button onClick={handleSubmitEmail} className={`w-fit ${buttonColor} text-white`}>
+                Submit
+              </Button>
+            </motion.div>
+          </div>
+        ) : otpVerified ? (
+          <form onSubmit={handleResetPassword} className="flex flex-col gap-4">
+            <h1 className="text-xl font-semibold text-center">Reset Password</h1>
+            <p className="text-sm text-gray-300 text-center">Enter a new password below.</p>
+
+            <div>
+              <label className="text-sm text-gray-300">New Password</label>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="w-full px-4 py-2 mt-1 rounded-lg bg-white/10 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                required
+              />
             </div>
-        </div>
-    );
+            <div>
+              <label className="text-sm text-gray-300">Confirm Password</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-2 mt-1 rounded-lg bg-white/10 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+                required
+              />
+            </div>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {success && <p className="text-green-500 text-sm">{success}</p>}
+            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white">
+              Reset Password
+            </Button>
+          </form>
+        ) : (
+          <div className="flex flex-col gap-4">
+            <p className="text-sm text-gray-300 text-center">
+              OTP has been sent. Please check your email.
+            </p>
+            <h1 className="text-lg font-semibold text-center">Enter OTP</h1>
+            <input
+              type="text"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              className="px-4 py-2 rounded-lg bg-white/10 border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+              placeholder="Enter OTP"
+              required
+            />
+            <Button
+              onClick={handleVerifyOtp}
+              className="w-full mt-2 bg-blue-600 hover:bg-blue-500 text-white"
+            >
+              Verify OTP
+            </Button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+          </div>
+        )}
+      </motion.div>
+    </div>
+  );
 };
 
 export default ForgotPassword;
