@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 const CreatePost = () => {
   const [postType, setPostType] = useState("Post");

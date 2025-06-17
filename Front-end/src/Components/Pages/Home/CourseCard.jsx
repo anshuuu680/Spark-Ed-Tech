@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/Components/ui/button';
 
 const CourseCard = ({ imageSrc, title, rating, students, tutor, priceOrg, priceDemo }) => {
   return (

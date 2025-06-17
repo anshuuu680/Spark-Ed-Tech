@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectIsAuthenticated, setIsAuthenticated, setUserData } from './Features/userDetails.jsx';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Loader from './components/Loader.jsx';
+import Loader from './Components/Loader.jsx';
 
 const SecuredRoutes = () => {
   const dispatch = useDispatch();

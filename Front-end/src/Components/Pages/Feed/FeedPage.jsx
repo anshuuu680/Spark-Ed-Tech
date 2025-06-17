@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import axios from 'axios';
 import Comment from './Comment';
-import { Button } from "@/components/ui/button.jsx";
+import { Button } from "@/Components/ui/button.jsx";
 import { motion } from 'framer-motion';
 import {
     Dialog,
@@ -12,7 +12,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@/Features/userDetails';
 

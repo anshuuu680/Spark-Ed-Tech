@@ -2,12 +2,12 @@ import {  Line, LineChart, XAxis, ResponsiveContainer } from "recharts";
 import {
   Card,
   CardContent
-} from "@/components/ui/card";
+} from "@/Components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent
-} from "@/components/ui/chart";
+} from "@/Components/ui/chart";
 
 const chartData = [
   { day: "Monday", desktop: 10 },

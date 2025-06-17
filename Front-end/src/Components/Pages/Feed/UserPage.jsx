@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom"

@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom"
-import  UserPage from "@/components/Pages/Feed/UserPage.jsx"
+import  UserPage from "@/Components/Pages/Feed/UserPage.jsx"
 
 const UserPageLayout = () => {
     return (

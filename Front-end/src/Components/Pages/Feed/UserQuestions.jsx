@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import QuestionCard from "./QuestionCard"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Loader from "@/components/Loader.jsx";
+import Loader from "@/Components/Loader.jsx";
 
 
 const UserQuestions = () => {
