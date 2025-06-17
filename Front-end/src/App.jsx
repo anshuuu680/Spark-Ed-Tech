@@ -8,21 +8,20 @@ import {
   AdminDashboard, AdminNotification, AdminTransactions, FeedPage, Chat, 
   ForgotPassword, Layout, ProfileLayout, UserPageLayout, UserPosts, UserQuestions,
   DynamicChat, AdminLayout, CourseDetails, PasswordChanged, VerifyOtp, MyProfile,
-  Courses, CourseDetail
+  Courses, CourseDetail, HomeLayout,
+  ILyout,
+  IDashboard, 
+  ICourses,
+  ICreate,
+  IPayment,
+  ISection,
+  ISignUp,
+  IVerify,
+  ILogin,
+  ICDetails,
+  MyClassroom,
+  MyCourses
 } from './index.js';
-import HomeLayout from './components/layout/HomeLayout.jsx';
-import ILyout from './components/Instructor/ILyout.jsx';
-import IDashboard from './components/Instructor/IDashboard.jsx';
-import ICourses from './components/Instructor/ICourses.jsx';
-import ICreate from './components/Instructor/ICreate.jsx';
-import IPayment from './components/Instructor/IPayment.jsx';
-import ISection from './components/Instructor/ISection.jsx';
-import ISignUp from './components/Instructor/ISignUp.jsx';
-import IVerify from './components/Instructor/IVerify.jsx';
-import ILogin from './components/Instructor/ILogin.jsx';
-import ICDetails from './components/Instructor/ICDetails.jsx';
-import MyClassroom from './components/Pages/Course/MyClassroom.jsx';
-import MyCourses from './components/Pages/Course/MyCourses.jsx';
 
 
 
